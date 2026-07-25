@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>General Knowledge Championship — QuizArena</title>
+  <meta name="description" content="Join the General Knowledge Championship. Entry fee ৳50, prize pool up to ৳4,200. 10 questions, 20 seconds each. Register now before the deadline.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+</head>
+<body style="background:var(--paper)">
+
+<!-- Nav -->
+<nav class="public-nav" id="main-nav">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px">
+      <a href="index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="13" stroke="#3E4BF0" stroke-width="2"/>
+          <path d="M8 14l4 4 8-8" stroke="#3E4BF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Quiz<span>Arena</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <ul class="nav-links hidden md:flex">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+
+      <!-- Auth Buttons -->
+      <div style="display:flex;align-items:center;gap:8px">
+        <a href="login.html" class="btn btn-ghost hidden md:inline-flex">Log In</a>
+        <a href="register.html" class="btn btn-primary">Join Free</a>
+        <!-- Mobile menu button -->
+        <button class="btn btn-ghost btn-icon md:hidden" style="padding:8px" onclick="const m=document.getElementById('mobile-menu'); m.style.display = m.style.display === 'none' ? 'block' : 'none'">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" style="display:none" class="pb-4 border-t border-line pt-4">
+      <ul style="display:flex;flex-direction:column;gap:4px">
+        <li><a href="index.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Home</a></li>
+        <li><a href="events.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Events</a></li>
+        <li><a href="how-it-works.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">How It Works</a></li>
+        <li><a href="login.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Log In</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Breadcrumb -->
+<div style="background:var(--surface-white);border-bottom:1px solid var(--line)">
+  <div class="container" style="padding-top:14px;padding-bottom:14px">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="events.html">Events</a>
+      <span>/</span>
+      <span style="color:var(--ink-navy)">General Knowledge Championship</span>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="padding-top:32px;padding-bottom:60px">
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start" class="md:grid-cols-2 grid-cols-1">
+
+    <!-- Left: Event Details -->
+    <div>
+      <!-- Title block -->
+      <div style="margin-bottom:24px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <span class="badge badge-live">LIVE NOW</span>
+          <span class="badge badge-slate">General Knowledge</span>
+        </div>
+        <h1 style="font-family:'Sora',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;color:var(--ink-navy);letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px">
+          General Knowledge Championship — July 2026
+        </h1>
+        <p style="font-size:15px;color:var(--slate);line-height:1.7">
+          Test your general knowledge against hundreds of participants in this live timed championship. 10 carefully selected questions, 20 seconds each — speed and accuracy both matter. The top 3 scorers by score then time share the prize pool.
+        </p>
+      </div>
+
+      <!-- Quick stats grid -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px">
+        <div class="stat-card">
+          <div class="stat-value gold" style="font-size:22px">৳4,200</div>
+          <div class="stat-label">Current Prize Pool</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="font-size:22px;color:var(--ink-navy)">84</div>
+          <div class="stat-label">Participants Enrolled</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value indigo" style="font-size:22px">৳50</div>
+          <div class="stat-label">Entry Fee</div>
+        </div>
+      </div>
+
+      <!-- Prize Distribution -->
+      <div class="card" style="margin-bottom:24px">
+        <div class="card-header">
+          <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px">Prize Distribution</span>
+          <span style="font-size:12px;color:var(--slate)">70% of total entries</span>
+        </div>
+        <div class="card-body" style="padding:20px">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:rgba(245,166,35,0.08);border-radius:10px;border:1px solid rgba(245,166,35,0.2)">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div class="rank-badge rank-1" style="width:36px;height:36px;font-size:16px">1</div>
+                <div>
+                  <div style="font-weight:700;font-size:14px;color:var(--ink-navy)">1st Place</div>
+                  <div style="font-size:12px;color:var(--slate)">50% of prize pool</div>
+                </div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--prize-gold)">৳2,100</div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--paper);border-radius:10px;border:1px solid var(--line)">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div class="rank-badge rank-2" style="width:36px;height:36px;font-size:16px">2</div>
+                <div>
+                  <div style="font-weight:700;font-size:14px;color:var(--ink-navy)">2nd Place</div>
+                  <div style="font-size:12px;color:var(--slate)">30% of prize pool</div>
+                </div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--ink-navy)">৳1,260</div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--paper);border-radius:10px;border:1px solid var(--line)">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div class="rank-badge rank-3" style="width:36px;height:36px;font-size:16px">3</div>
+                <div>
+                  <div style="font-weight:700;font-size:14px;color:var(--ink-navy)">3rd Place</div>
+                  <div style="font-size:12px;color:var(--slate)">20% of prize pool</div>
+                </div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--ink-navy)">৳840</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Rules -->
+      <div class="card" style="margin-bottom:24px">
+        <div class="card-header">
+          <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px">Event Rules & Format</span>
+        </div>
+        <div class="card-body" style="padding:20px">
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px">
+            <li style="display:flex;align-items:flex-start;gap:10px">
+              <svg width="18" height="18" fill="none" stroke="var(--signal-indigo)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span style="font-size:14px;color:var(--ink-navy)"><strong>10 questions</strong>, 20 seconds per question. Timer is server-side — you cannot manipulate it.</span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:10px">
+              <svg width="18" height="18" fill="none" stroke="var(--signal-indigo)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span style="font-size:14px;color:var(--ink-navy)">Questions and answer options are <strong>shuffled per participant</strong> to prevent sharing answers.</span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:10px">
+              <svg width="18" height="18" fill="none" stroke="var(--signal-indigo)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span style="font-size:14px;color:var(--ink-navy)"><strong>Tab switching is monitored.</strong> Maximum 2 tab switches allowed. Exceeding the limit results in auto-submit or disqualification.</span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:10px">
+              <svg width="18" height="18" fill="none" stroke="var(--signal-indigo)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span style="font-size:14px;color:var(--ink-navy)"><strong>Tiebreaker: total time taken.</strong> Same score → faster total response time wins. Ranked server-side.</span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:10px">
+              <svg width="18" height="18" fill="none" stroke="var(--alert-coral)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span style="font-size:14px;color:var(--ink-navy)">No correct/incorrect feedback mid-quiz. Results are revealed after the event closes.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="card">
+        <div class="card-body" style="padding:20px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:44px;height:44px;background:var(--indigo-50);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--signal-indigo)">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            </div>
+            <div>
+              <div style="font-size:12px;color:var(--slate);margin-bottom:3px">Category</div>
+              <div style="font-weight:700;font-size:15px;color:var(--ink-navy)">General Knowledge</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Enrollment Card (Sticky) -->
+    <div style="position:sticky;top:80px" x-data="{enrolled:false}">
+      <div class="card" style="overflow:visible">
+        <!-- Prize Pool Highlight -->
+        <div style="background:linear-gradient(135deg,#101B3D,#1A2A5C);padding:20px;border-radius:16px 16px 0 0;text-align:center">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.5);margin-bottom:6px">Live Prize Pool</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:700;color:var(--prize-gold);line-height:1">৳4,200</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px">Growing with every registration</div>
+
+          <!-- Live countdown ring -->
+          <div style="margin-top:16px;display:flex;justify-content:center">
+            <div class="ring-container ring-md">
+              <svg id="event-ring" class="ring-svg" width="80" height="80" viewBox="0 0 80 80">
+                <circle class="ring-track" cx="40" cy="40" r="34" stroke-width="6"/>
+                <circle id="event-ring-fill" class="ring-fill" cx="40" cy="40" r="34" stroke-width="6"/>
+              </svg>
+              <div class="ring-label" style="font-size:14px;color:#fff">
+                <span id="event-ring-label">20</span>
+                <div style="font-size:9px;color:rgba(255,255,255,0.5)">sec/Q</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <!-- Entry fee -->
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)">
+            <span style="font-size:13px;color:var(--slate)">Entry Fee</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px;color:var(--ink-navy)">৳50.00</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)">
+            <span style="font-size:13px;color:var(--slate)">Questions</span>
+            <span style="font-weight:600;font-size:13px;color:var(--ink-navy)">10 questions</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)">
+            <span style="font-size:13px;color:var(--slate)">Time per Question</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:13px;color:var(--ink-navy)">20 seconds</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)">
+            <span style="font-size:13px;color:var(--slate)">Status</span>
+            <span class="badge badge-live">LIVE NOW</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0">
+            <span style="font-size:13px;color:var(--slate)">Enrolled</span>
+            <span style="font-weight:700;font-size:13px;color:var(--ink-navy)">84 participants</span>
+          </div>
+
+          <!-- CTA -->
+          <div style="margin-top:4px" x-show="!enrolled">
+            <a href="register.html" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;font-size:15px;margin-bottom:10px" id="event-enroll-btn">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Register to Enroll
+            </a>
+            <p style="font-size:11px;text-align:center;color:var(--slate)">Entry fee deducted from wallet on enrollment</p>
+          </div>
+
+          <!-- If logged in, show enrolled state -->
+          <div style="margin-top:4px;display:none" id="enrolled-state">
+            <div style="background:#D1FAE5;border-radius:10px;padding:16px;text-align:center;margin-bottom:10px">
+              <svg width="24" height="24" fill="none" stroke="var(--correct-green)" stroke-width="2.5" viewBox="0 0 24 24" style="margin:0 auto 8px"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div style="font-weight:700;color:#065F46;font-size:14px">You're enrolled!</div>
+              <div style="font-size:12px;color:#047857;margin-top:3px">Entry fee deducted from wallet</div>
+            </div>
+            <a href="users/quiz-play.html" class="btn btn-success" style="width:100%;justify-content:center;padding:14px;font-size:15px">
+              Start Quiz →
+            </a>
+          </div>
+        </div>
+
+        <!-- Min participants note -->
+        <div class="card-footer">
+          <div style="display:flex;align-items:flex-start;gap:8px">
+            <svg width="16" height="16" fill="none" stroke="var(--slate)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span style="font-size:12px;color:var(--slate)">If minimum 10 participants are not met, entry fees are fully refunded to wallets.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer style="background:var(--ink-navy);color:#fff;padding:56px 0 24px">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px" class="md:grid-cols-4 grid-cols-2">
+      <!-- Brand -->
+      <div>
+        <a href="index.html" style="font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#3E4BF0" stroke-width="2"/><path d="M7 12l3 3 7-7" stroke="#3E4BF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Quiz<span style="color:var(--signal-indigo)">Arena</span>
+        </a>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:240px">Bangladesh's competitive quiz platform — real prizes, fair ranking, instant payouts.</p>
+        <div style="display:flex;gap:10px;margin-top:20px">
+          <a href="#" style="width:34px;height:34px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all 0.2s;text-decoration:none" onmouseover="this.style.background='rgba(62,75,240,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" style="width:34px;height:34px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all 0.2s;text-decoration:none" onmouseover="this.style.background='rgba(62,75,240,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Platform -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Platform</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li><a href="events.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Browse Events</a></li>
+          <li><a href="how-it-works.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">How It Works</a></li>
+          <li><a href="register.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Register</a></li>
+          <li><a href="login.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Log In</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Legal</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li><a href="privacy-policy.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Privacy Policy</a></li>
+          <li><a href="terms.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Terms of Service</a></li>
+          <li><a href="about.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">About Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Contact</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:rgba(255,255,255,0.6)">support@quizarena.com.bd</li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6)">Mon–Sat, 9am–9pm</li>
+          <li><a href="#" style="font-size:13px;color:var(--signal-indigo);text-decoration:none">Join Discord Community</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2026 QuizArena. All rights reserved. | Platform for entertainment & fair competition.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">Built with ❤️ in Bangladesh</p>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="assets/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const fill = document.getElementById('event-ring-fill');
+    const label = document.getElementById('event-ring-label');
+    if (!fill) return;
+    const r = 34;
+    const circ = 2 * Math.PI * r;
+    fill.style.strokeDasharray = circ;
+    let t = 20;
+    function animate() {
+      const progress = t / 20;
+      fill.style.strokeDashoffset = circ * (1 - progress);
+      if (label) label.textContent = t;
+      if (t <= 5) { fill.classList.remove('gold'); fill.classList.add('coral'); }
+      else if (t <= 8) { fill.classList.remove('coral'); fill.classList.add('gold'); }
+      else { fill.classList.remove('gold','coral'); }
+      t--;
+      if (t < 0) { t = 20; fill.classList.remove('gold','coral'); }
+      setTimeout(animate, 700);
+    }
+    animate();
+  });
+</script>
+</body>
+</html>

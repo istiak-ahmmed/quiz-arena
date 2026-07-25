@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — QuizArena</title>
+  <meta name="description" content="Log in to your QuizArena account to access quiz events, your wallet, and leaderboard rankings.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE',100:'#DDE0FD'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+</head>
+<body style="background:var(--paper);min-height:100vh;display:flex;flex-direction:column">
+
+<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px">
+  <div style="width:100%;max-width:420px">
+
+    <!-- Logo -->
+    <div style="text-align:center;margin-bottom:32px">
+      <a href="index.html" style="font-family:'Sora',sans-serif;font-size:24px;font-weight:800;color:var(--ink-navy);text-decoration:none;display:inline-flex;align-items:center;gap:8px">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#3E4BF0" stroke-width="2"/><path d="M9 16l5 5 9-9" stroke="#3E4BF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Quiz<span style="color:var(--signal-indigo)">Arena</span>
+      </a>
+      <h1 style="font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:var(--ink-navy);margin-top:20px;margin-bottom:6px">Welcome back</h1>
+      <p style="font-size:14px;color:var(--slate)">Log in to your account to continue</p>
+    </div>
+
+    <!-- Login Form Card -->
+    <div class="card" style="padding:28px">
+      <form id="login-form" x-data="{loading:false,showPass:false}" @submit.prevent="loading=true;setTimeout(()=>{window.location='users/dashboard.html'},1200)">
+
+        <!-- Email/Phone -->
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email or Phone</label>
+          <div class="form-input-icon-wrap">
+            <svg class="input-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
+            <input id="login-email" type="text" class="form-input" placeholder="email@example.com or 01XXXXXXXXX" required>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <label class="form-label" style="margin:0" for="login-password">Password</label>
+            <a href="#" style="font-size:12px;color:var(--signal-indigo);text-decoration:none;font-weight:600">Forgot password?</a>
+          </div>
+          <div class="form-input-icon-wrap" style="position:relative">
+            <svg class="input-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <input id="login-password" :type="showPass ? 'text' : 'password'" class="form-input" placeholder="••••••••" required style="padding-right:44px">
+            <button type="button" @click="showPass=!showPass" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--slate);padding:4px">
+              <svg x-show="!showPass" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <svg x-show="showPass" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember me -->
+        <div style="margin-bottom:20px">
+          <label class="form-check">
+            <input type="checkbox" id="remember-me">
+            <span class="form-check-label">Remember me for 30 days</span>
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" id="login-submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;font-size:15px" :class="{'opacity-70':loading}" :disabled="loading">
+          <span x-show="!loading">Log In to QuizArena</span>
+          <span x-show="loading" style="display:flex;align-items:center;justify-content:center;gap:8px">
+            <svg width="18" height="18" viewBox="0 0 38 38" stroke="currentColor" style="animation:spin 0.7s linear infinite"><g fill="none" fill-rule="evenodd"><g transform="translate(1 1)" stroke-width="2.5"><circle stroke-opacity=".3" cx="18" cy="18" r="18"/><path d="M36 18c0-9.94-8.06-18-18-18"/></g></g></svg>
+          </span>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div style="display:flex;align-items:center;gap:12px;margin:20px 0">
+        <div style="flex:1;height:1px;background:var(--line)"></div>
+        <span style="font-size:12px;color:var(--slate)">or continue with</span>
+        <div style="flex:1;height:1px;background:var(--line)"></div>
+      </div>
+
+      <!-- Phone OTP option -->
+      <button onclick="Toast.info('Coming Soon','Phone OTP login will be available soon')" class="btn btn-outline" style="width:100%;justify-content:center;gap:8px" id="otp-login-btn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        Log in with Phone OTP
+      </button>
+    </div>
+
+    <!-- Sign up link -->
+    <p style="text-align:center;margin-top:20px;font-size:14px;color:var(--slate)">
+      Don't have an account?
+      <a href="register.html" style="color:var(--signal-indigo);font-weight:700;text-decoration:none">Sign up free →</a>
+    </p>
+
+    <!-- Admin login link -->
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--slate)">
+      Admin?
+      <a href="admin/dashboard.html" style="color:var(--slate);font-weight:600;text-decoration:none">Access Admin Panel</a>
+    </p>
+  </div>
+</div>
+
+<!-- Footer note -->
+<div style="padding:20px;text-align:center;border-top:1px solid var(--line)">
+  <p style="font-size:12px;color:var(--slate)">
+    By logging in, you agree to our
+    <a href="terms.html" style="color:var(--signal-indigo);text-decoration:none">Terms of Service</a> and
+    <a href="privacy-policy.html" style="color:var(--signal-indigo);text-decoration:none">Privacy Policy</a>
+  </p>
+</div>
+
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+<div id="toast-container" class="toast-container"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

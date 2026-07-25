@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — QuizArena Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body style="background:var(--paper)">
+<div id="sidebar-overlay" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;backdrop-filter:blur(2px)"></div>
+<div class="admin-layout">
+  <div id="admin-sidebar-root"></div>
+  <div class="admin-content">
+    <div id="admin-topbar-root"></div>
+    <main class="admin-main">
+      <div class="page-header">
+        <div><h2 class="page-title">Platform Settings</h2><p class="page-subtitle">Configure MFS numbers, referral bonuses, and system policies</p></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:start">
+        <!-- Settings Nav -->
+        <div class="card" style="padding:8px;position:sticky;top:84px">
+          <button class="admin-nav-item active" onclick="switchSettings(this,'settings-mfs')" style="width:100%;border-radius:8px;font-size:13px" id="snav-mfs">MFS Numbers</button>
+          <button class="admin-nav-item" onclick="switchSettings(this,'settings-referral')" style="width:100%;border-radius:8px;font-size:13px" id="snav-referral">Referral Program</button>
+          <button class="admin-nav-item" onclick="switchSettings(this,'settings-policies')" style="width:100%;border-radius:8px;font-size:13px" id="snav-policies">Policies</button>
+          <button class="admin-nav-item" onclick="switchSettings(this,'settings-admin')" style="width:100%;border-radius:8px;font-size:13px" id="snav-admin">Admin Account</button>
+        </div>
+
+        <!-- Settings Panels -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+
+          <!-- MFS Numbers -->
+          <div id="settings-mfs">
+            <div class="card" style="padding:24px;margin-bottom:16px">
+              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy);margin-bottom:20px">MFS Collection Numbers</div>
+              <p style="font-size:13px;color:var(--slate);margin-bottom:20px;line-height:1.6">These numbers are shown to users when they recharge. Users send money to these numbers and submit the transaction ID for verification.</p>
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">bKash Collection Number</label>
+                  <div style="display:flex;gap:8px">
+                    <input type="tel" class="form-input" value="01XXXXXXXXX" id="bkash-number" style="font-family:'JetBrains Mono',monospace;font-weight:700">
+                    <button onclick="Toast.success('Saved','bKash number updated')" class="btn btn-secondary" style="flex-shrink:0">Save</button>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Nagad Collection Number</label>
+                  <div style="display:flex;gap:8px">
+                    <input type="tel" class="form-input" value="01XXXXXXXXX" id="nagad-number" style="font-family:'JetBrains Mono',monospace;font-weight:700">
+                    <button onclick="Toast.success('Saved','Nagad number updated')" class="btn btn-secondary" style="flex-shrink:0">Save</button>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Rocket Collection Number</label>
+                  <div style="display:flex;gap:8px">
+                    <input type="tel" class="form-input" value="01XXXXXXXXX" id="rocket-number" style="font-family:'JetBrains Mono',monospace;font-weight:700">
+                    <button onclick="Toast.success('Saved','Rocket number updated')" class="btn btn-secondary" style="flex-shrink:0">Save</button>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Upay Collection Number</label>
+                  <div style="display:flex;gap:8px">
+                    <input type="tel" class="form-input" value="01XXXXXXXXX" id="upay-number" style="font-family:'JetBrains Mono',monospace;font-weight:700">
+                    <button onclick="Toast.success('Saved','Upay number updated')" class="btn btn-secondary" style="flex-shrink:0">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="padding:24px">
+              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy);margin-bottom:20px">Deposit Limits</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Minimum Deposit (৳)</label>
+                  <input type="number" class="form-input" value="50" id="min-deposit">
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Maximum Deposit (৳)</label>
+                  <input type="number" class="form-input" value="10000" id="max-deposit">
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Minimum Withdrawal (৳)</label>
+                  <input type="number" class="form-input" value="100" id="min-withdrawal">
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Maximum Withdrawal (৳)</label>
+                  <input type="number" class="form-input" value="5000" id="max-withdrawal">
+                </div>
+              </div>
+              <button onclick="Toast.success('Saved','Deposit limits updated')" class="btn btn-primary" style="margin-top:16px" id="save-limits-btn">Save Limits</button>
+            </div>
+          </div>
+
+          <!-- Referral Settings -->
+          <div id="settings-referral" style="display:none">
+            <div class="card" style="padding:24px">
+              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy);margin-bottom:20px">Referral Program Configuration</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Referrer Bonus (৳)</label>
+                  <input type="number" class="form-input" value="20" id="referrer-bonus">
+                  <div class="form-hint">Paid to the person who referred</div>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Referred Person Bonus (৳)</label>
+                  <input type="number" class="form-input" value="10" id="referee-bonus">
+                  <div class="form-hint">Paid to the new user who joins</div>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Qualification Condition</label>
+                  <select class="form-select" id="referral-condition">
+                    <option value="first_paid_quiz">Complete first paid quiz event</option>
+                    <option value="registration">Just register</option>
+                    <option value="first_deposit">First deposit</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Program Status</label>
+                  <div style="display:flex;align-items:center;gap:10px;height:42px">
+                    <div class="toggle-switch active" id="referral-toggle" onclick="this.classList.toggle('active');Toast.info('Referral','Referral program '+(this.classList.contains('active')?'enabled':'disabled'))"></div>
+                    <span style="font-size:13px;color:var(--ink-navy);font-weight:600">Program Active</span>
+                  </div>
+                </div>
+              </div>
+              <button onclick="Toast.success('Saved','Referral settings updated')" class="btn btn-primary" style="margin-top:16px" id="save-referral-btn">Save Referral Settings</button>
+            </div>
+          </div>
+
+          <!-- Policies -->
+          <div id="settings-policies" style="display:none">
+            <div class="card" style="padding:24px;margin-bottom:16px">
+              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy);margin-bottom:20px">Quiz Policies</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Max Tab Switches Allowed</label>
+                  <input type="number" class="form-input" value="2" min="0" max="5" id="max-tab-switches">
+                  <div class="form-hint">Exceed → auto-submit</div>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Default Prize Pool %</label>
+                  <input type="number" class="form-input" value="70" min="50" max="95" id="default-prize-pct">
+                  <div class="form-hint">Platform keeps the rest</div>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Default Min. Participants</label>
+                  <input type="number" class="form-input" value="10" min="5" id="default-min-participants">
+                  <div class="form-hint">Refund if not met</div>
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Shuffle Questions</label>
+                  <div style="display:flex;align-items:center;gap:10px;height:42px">
+                    <div class="toggle-switch active" id="shuffle-q-toggle" onclick="this.classList.toggle('active')"></div>
+                    <span style="font-size:13px;color:var(--ink-navy);font-weight:600">Enabled (anti-cheat)</span>
+                  </div>
+                </div>
+              </div>
+              <button onclick="Toast.success('Saved','Platform policies updated')" class="btn btn-primary" style="margin-top:16px" id="save-policies-btn">Save Policies</button>
+            </div>
+          </div>
+
+          <!-- Admin Account -->
+          <div id="settings-admin" style="display:none">
+            <div class="card" style="padding:24px">
+              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy);margin-bottom:20px">Admin Account</div>
+              <div class="form-group">
+                <label class="form-label">Admin Email</label>
+                <input type="email" class="form-input" value="admin@quizarena.com" id="admin-email">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Current Password</label>
+                <input type="password" class="form-input" placeholder="Enter current password" id="admin-current-pw">
+              </div>
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <input type="password" class="form-input" placeholder="Min 12 characters recommended" id="admin-new-pw">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirm New Password</label>
+                <input type="password" class="form-input" placeholder="Repeat new password" id="admin-confirm-pw">
+              </div>
+              <button onclick="Toast.success('Updated','Admin credentials updated')" class="btn btn-primary" id="save-admin-btn">Save Changes</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-layout.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAdminSidebar('settings');
+    renderAdminTopbar('Settings', 'Configure platform policies and MFS numbers');
+  });
+
+  function switchSettings(btn, panelId) {
+    document.querySelectorAll('#settings-mfs,#settings-referral,#settings-policies,#settings-admin').forEach(p => p.style.display='none');
+    document.getElementById(panelId).style.display='flex';
+    document.getElementById(panelId).style.flexDirection='column';
+    document.querySelectorAll('.admin-nav-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  
+  // Fix initial display
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.getElementById('settings-mfs').style.display='block';
+    }, 100);
+  });
+</script>
+</body>
+</html>

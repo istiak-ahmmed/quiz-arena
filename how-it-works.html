@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works — QuizArena</title>
+  <meta name="description" content="Learn how QuizArena works — from registering your account to competing in live quiz events and cashing out your winnings.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+</head>
+<body style="background:var(--paper)">
+
+<nav class="public-nav" id="main-nav">
+  <div class="container"><div style="display:flex;align-items:center;justify-content:space-between;height:64px">
+    <a href="index.html" class="nav-logo"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="12" stroke="#3E4BF0" stroke-width="2"/><path d="M7 13l4 4 8-8" stroke="#3E4BF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Quiz<span>Arena</span></a>
+    <ul class="nav-links hidden md:flex"><li><a href="index.html">Home</a></li><li><a href="events.html">Events</a></li><li><a href="how-it-works.html" class="active">How It Works</a></li><li><a href="about.html">About</a></li></ul>
+      <div style="display:flex;align-items:center;gap:8px">
+        <a href="login.html" class="btn btn-ghost hidden md:inline-flex">Log In</a>
+        <a href="register.html" class="btn btn-primary">Join Free</a>
+        <!-- Mobile menu button -->
+        <button class="btn btn-ghost btn-icon md:hidden" style="padding:8px" onclick="const m=document.getElementById('mobile-menu'); m.style.display = m.style.display === 'none' ? 'block' : 'none'">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" style="display:none" class="pb-4 border-t border-line pt-4">
+      <ul style="display:flex;flex-direction:column;gap:4px">
+        <li><a href="index.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Home</a></li>
+        <li><a href="events.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Events</a></li>
+        <li><a href="how-it-works.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">How It Works</a></li>
+        <li><a href="login.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Log In</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Hero -->
+<div style="background:var(--ink-navy);padding:60px 0 70px">
+  <div class="container" style="text-align:center">
+    <div class="section-label" style="display:inline-flex;margin-bottom:16px;background:rgba(62,75,240,0.2);color:#9CA8FC">Simple Process</div>
+    <h1 style="font-family:'Sora',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:14px">How QuizArena Works</h1>
+    <p style="font-size:16px;color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto">Everything you need to know about competing, winning, and cashing out — in plain language.</p>
+  </div>
+</div>
+
+<div class="container" style="padding:60px 20px">
+
+  <!-- Section 1: Getting Started -->
+  <div style="margin-bottom:64px">
+    <h2 style="font-family:'Sora',sans-serif;font-size:1.4rem;font-weight:800;color:var(--ink-navy);margin-bottom:32px;display:flex;align-items:center;gap:10px">
+      <span style="width:36px;height:36px;background:var(--indigo-50);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--signal-indigo)">1</span>
+      Getting Started
+    </h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+      <div class="step-card">
+        <span class="step-num">A</span>
+        <div class="step-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg></div>
+        <div class="step-title">Create a Free Account</div>
+        <p class="step-desc">Register with your name, email, and phone number. No credit card required. Your phone number is used for MFS payment matching.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">B</span>
+        <div class="step-icon" style="background:#FEF3C7;color:var(--prize-gold)"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="step-title">Recharge Your Wallet</div>
+        <p class="step-desc">Send money via bKash, Nagad, Rocket, or Upay to our collection number. Submit the TxID + amount. Admin verifies and credits your wallet within minutes.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">C</span>
+        <div class="step-icon" style="background:#D1FAE5;color:var(--correct-green)"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div>
+        <div class="step-title">Browse & Enroll in Events</div>
+        <p class="step-desc">Browse upcoming quiz events by category. Pay the entry fee from your wallet to enroll. Registration closes at the event deadline.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: The Quiz -->
+  <div style="margin-bottom:64px">
+    <h2 style="font-family:'Sora',sans-serif;font-size:1.4rem;font-weight:800;color:var(--ink-navy);margin-bottom:32px;display:flex;align-items:center;gap:10px">
+      <span style="width:36px;height:36px;background:var(--indigo-50);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--signal-indigo)">2</span>
+      Playing the Quiz
+    </h2>
+
+    <div class="card" style="margin-bottom:20px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0" class="md:grid-cols-2 grid-cols-1">
+        <div style="padding:32px;border-right:1px solid var(--line)">
+          <h3 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin-bottom:16px">The Quiz Runner Interface</h3>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px">
+            <li style="display:flex;gap:10px;font-size:14px;color:var(--slate)"><span style="color:var(--signal-indigo);font-weight:700;flex-shrink:0">→</span>Full-screen, distraction-free layout. Navigation is hidden during play.</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:var(--slate)"><span style="color:var(--signal-indigo);font-weight:700;flex-shrink:0">→</span>One question at a time. Four large answer buttons for easy tapping on mobile.</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:var(--slate)"><span style="color:var(--signal-indigo);font-weight:700;flex-shrink:0">→</span>The countdown ring at the top changes color — Indigo → Gold → Red — as time runs low.</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:var(--slate)"><span style="color:var(--signal-indigo);font-weight:700;flex-shrink:0">→</span>No correct/incorrect feedback shown mid-quiz. All results are revealed after the event closes.</li>
+          </ul>
+        </div>
+        <div style="padding:32px;background:var(--paper)">
+          <h3 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin-bottom:16px">Anti-Cheat System</h3>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px">
+            <li style="display:flex;gap:10px;font-size:14px;color:var(--slate)"><span style="color:var(--alert-coral);font-weight:700;flex-shrink:0">⚠</span>Question/option order is uniquely shuffled per participant. Copying from others won't help.</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:var(--slate)"><span style="color:var(--alert-coral);font-weight:700;flex-shrink:0">⚠</span>Timing is 100% server-side. The client clock is only decorative.</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:var(--slate)"><span style="color:var(--alert-coral);font-weight:700;flex-shrink:0">⚠</span>Tab switching is logged. Exceed the limit (usually 2) and your session is flagged.</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:var(--slate)"><span style="color:var(--alert-coral);font-weight:700;flex-shrink:0">⚠</span>Browser blur/focus events are recorded but treated as signals, not automatic disqualifications.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Ranking & Prizes -->
+  <div style="margin-bottom:64px">
+    <h2 style="font-family:'Sora',sans-serif;font-size:1.4rem;font-weight:800;color:var(--ink-navy);margin-bottom:32px;display:flex;align-items:center;gap:10px">
+      <span style="width:36px;height:36px;background:var(--indigo-50);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--signal-indigo)">3</span>
+      Ranking & Prize Distribution
+    </h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-bottom:24px">
+      <div class="card" style="padding:24px;border-top:3px solid var(--prize-gold)">
+        <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--ink-navy);margin-bottom:10px">How Ranking Works</div>
+        <p style="font-size:14px;color:var(--slate);line-height:1.7">Primary sort: <strong>score</strong> (correct answers). Tiebreaker: <strong>total time taken</strong> — server-derived by summing (answer submission time − question served time) for every question. Faster total time at the same score = higher rank.</p>
+      </div>
+      <div class="card" style="padding:24px;border-top:3px solid var(--signal-indigo)">
+        <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--ink-navy);margin-bottom:10px">How Prize Pool is Built</div>
+        <p style="font-size:14px;color:var(--slate);line-height:1.7">Prize pool = total entry fees × prize pool percentage (e.g. 70%). Platform keeps the rest as operating revenue. The prize pool figure shown on event pages is a live estimate based on current enrollment.</p>
+      </div>
+      <div class="card" style="padding:24px;border-top:3px solid var(--correct-green)">
+        <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--ink-navy);margin-bottom:10px">Prize Split</div>
+        <p style="font-size:14px;color:var(--slate);line-height:1.7">Example split: 1st = 50%, 2nd = 30%, 3rd = 20% of the prize pool. Prize amounts are fixed at event-close time based on final enrollment count and credited to winner wallets automatically.</p>
+      </div>
+    </div>
+
+    <!-- Example calculation -->
+    <div class="card" style="padding:24px;background:var(--paper)">
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--ink-navy);margin-bottom:16px">📊 Example Calculation</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+        <div style="background:var(--surface-white);padding:14px;border-radius:10px;border:1px solid var(--line)">
+          <div style="font-size:11px;color:var(--slate);margin-bottom:4px">100 Participants</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--ink-navy)">× ৳50</div>
+          <div style="font-size:11px;color:var(--slate);margin-top:2px">entry fee</div>
+        </div>
+        <div style="background:var(--surface-white);padding:14px;border-radius:10px;border:1px solid var(--line)">
+          <div style="font-size:11px;color:var(--slate);margin-bottom:4px">Total Collected</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--ink-navy)">৳5,000</div>
+          <div style="font-size:11px;color:var(--slate);margin-top:2px">total revenue</div>
+        </div>
+        <div style="background:var(--surface-white);padding:14px;border-radius:10px;border:1px solid var(--line)">
+          <div style="font-size:11px;color:var(--slate);margin-bottom:4px">Prize Pool (70%)</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--prize-gold)">৳3,500</div>
+          <div style="font-size:11px;color:var(--slate);margin-top:2px">to winners</div>
+        </div>
+        <div style="background:#FEF3C7;padding:14px;border-radius:10px;border:1px solid rgba(245,166,35,0.3)">
+          <div style="font-size:11px;color:var(--slate);margin-bottom:4px">1st Place (50%)</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--prize-gold)">৳1,750</div>
+          <div style="font-size:11px;color:var(--slate);margin-top:2px">winner prize</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Withdrawals -->
+  <div style="margin-bottom:48px">
+    <h2 style="font-family:'Sora',sans-serif;font-size:1.4rem;font-weight:800;color:var(--ink-navy);margin-bottom:32px;display:flex;align-items:center;gap:10px">
+      <span style="width:36px;height:36px;background:var(--indigo-50);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--signal-indigo)">4</span>
+      Withdrawing Your Winnings
+    </h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+      <div class="step-card">
+        <div class="step-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg></div>
+        <div class="step-title">Request Withdrawal</div>
+        <p class="step-desc">Go to Wallet → Withdraw. Enter the amount (min ৳100) and your MFS number. Request submitted for admin processing.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon" style="background:#D1FAE5;color:var(--correct-green)"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="step-title">Admin Processes</div>
+        <p class="step-desc">Admin reviews and sends payment to your MFS number. Processed within 24 hours on business days. No platform fees.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon" style="background:#FEF3C7;color:var(--prize-gold)"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+        <div class="step-title">Money in Your Account</div>
+        <p class="step-desc">Withdrawal marked as completed. Funds arrive in your bKash/Nagad/Rocket/Upay account and your wallet ledger is updated.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div style="background:var(--ink-navy);border-radius:20px;padding:40px;text-align:center">
+    <h2 style="font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:10px">Ready to compete?</h2>
+    <p style="font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:24px">Join QuizArena for free. Browse events. Win real prizes.</p>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+      <a href="register.html" class="btn btn-gold btn-lg">Create Free Account</a>
+      <a href="events.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.3);color:#fff">Browse Events</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer style="background:var(--ink-navy);color:#fff;padding:56px 0 24px;margin-top:0">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px" class="md:grid-cols-4 grid-cols-2">
+      <!-- Brand -->
+      <div>
+        <a href="index.html" style="font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#3E4BF0" stroke-width="2"/><path d="M7 12l3 3 7-7" stroke="#3E4BF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Quiz<span style="color:var(--signal-indigo)">Arena</span>
+        </a>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:240px">Bangladesh's competitive quiz platform — real prizes, fair ranking, instant payouts.</p>
+        <div style="display:flex;gap:10px;margin-top:20px">
+          <a href="#" style="width:34px;height:34px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all 0.2s;text-decoration:none" onmouseover="this.style.background='rgba(62,75,240,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" style="width:34px;height:34px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all 0.2s;text-decoration:none" onmouseover="this.style.background='rgba(62,75,240,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Platform -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Platform</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li><a href="events.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Browse Events</a></li>
+          <li><a href="how-it-works.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">How It Works</a></li>
+          <li><a href="register.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Register</a></li>
+          <li><a href="login.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Log In</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Legal</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li><a href="privacy-policy.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Privacy Policy</a></li>
+          <li><a href="terms.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Terms of Service</a></li>
+          <li><a href="about.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">About Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Contact</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:rgba(255,255,255,0.6)">support@quizarena.com.bd</li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6)">Mon–Sat, 9am–9pm</li>
+          <li><a href="#" style="font-size:13px;color:var(--signal-indigo);text-decoration:none">Join Discord Community</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2026 QuizArena. All rights reserved. | Platform for entertainment & fair competition.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">Built with ❤️ in Bangladesh</p>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

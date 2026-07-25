@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Event — QuizArena Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body style="background:var(--paper)">
+<div id="sidebar-overlay" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;backdrop-filter:blur(2px)"></div>
+<div class="admin-layout">
+  <div id="admin-sidebar-root"></div>
+  <div class="admin-content">
+    <div id="admin-topbar-root"></div>
+    <main class="admin-main">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb" style="margin-bottom:6px"><a href="events.html">Events</a><span>/</span><span style="color:var(--ink-navy)">Create Event</span></div>
+          <h2 class="page-title">Create Quiz Event</h2>
+        </div>
+        <a href="events.html" class="btn btn-secondary">← Back to Events</a>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start" class="md:grid-cols-2 grid-cols-1"
+        x-data="{
+          name:'', category:'', fee:50, questions:10, timePerQ:20,
+          prizePercent:70, minParticipants:10,
+          deadline:'', startAt:'',
+          splits:[{rank:'1st',pct:50},{rank:'2nd',pct:30},{rank:'3rd',pct:20}],
+          get estPool(){ return Math.round(this.fee * this.minParticipants * this.prizePercent/100) }
+        }">
+
+        <!-- Form -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+
+          <!-- Basic Info -->
+          <div class="card" style="padding:24px">
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy);margin-bottom:20px">Basic Information</div>
+            <div class="form-group">
+              <label class="form-label">Event Title <span class="required-star">*</span></label>
+              <input type="text" class="form-input" placeholder="e.g. General Knowledge Championship — August 2026" x-model="name" id="event-name">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Category <span class="required-star">*</span></label>
+                <select class="form-select" x-model="category" id="event-category">
+                  <option value="">Select category...</option>
+                  <option>General Knowledge</option>
+                  <option>Science</option>
+                  <option>Mathematics</option>
+                  <option>History</option>
+                  <option>English</option>
+                  <option>Geography</option>
+                  <option>Current Affairs</option>
+                  <option>Technology</option>
+                  <option>Literature</option>
+                  <option>Islamic Studies</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Question Pool (from bank)</label>
+                <select class="form-select" id="event-question-pool">
+                  <option>Auto (random from category)</option>
+                  <option>Manual selection</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Settings -->
+          <div class="card" style="padding:24px">
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy);margin-bottom:20px">Quiz Configuration</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Number of Questions</label>
+                <input type="number" class="form-input" x-model="questions" min="5" max="30" id="event-questions">
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Time Per Question (sec)</label>
+                <input type="number" class="form-input" x-model="timePerQ" min="10" max="60" id="event-time-per-q">
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Min. Participants</label>
+                <input type="number" class="form-input" x-model="minParticipants" min="5" id="event-min-participants">
+                <div class="form-hint">Refund if not met</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing -->
+          <div class="card" style="padding:24px">
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy);margin-bottom:20px">Pricing & Prizes</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Entry Fee (৳) <span class="required-star">*</span></label>
+                <input type="number" class="form-input" x-model="fee" min="10" id="event-fee">
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Prize Pool % (of total)</label>
+                <input type="number" class="form-input" x-model="prizePercent" min="50" max="95" id="event-prize-pct">
+                <div class="form-hint">Platform keeps <span x-text="100-prizePercent"></span>% as fee</div>
+              </div>
+            </div>
+
+            <!-- Prize Splits -->
+            <div style="font-size:13px;font-weight:600;color:var(--ink-navy);margin-bottom:10px">Prize Distribution</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+              <template x-for="(split,i) in splits" :key="i">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="rank-badge" :class="['rank-1','rank-2','rank-3'][i]" style="width:32px;height:32px;font-size:13px;flex-shrink:0" x-text="i+1"></div>
+                  <span style="font-size:13px;color:var(--slate);width:40px" x-text="split.rank"></span>
+                  <input type="number" class="form-input" x-model="split.pct" min="0" max="100" style="width:80px;height:34px;text-align:center">
+                  <span style="font-size:13px;color:var(--slate)">%</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--prize-gold);margin-left:auto">≈ ৳<span x-text="Math.round(estPool*split.pct/100)"></span></span>
+                </div>
+              </template>
+            </div>
+            <div style="font-size:11px;color:var(--slate)">
+              Total splits: <span :style="splits.reduce((a,s)=>a+Number(s.pct),0)===100?'color:var(--correct-green);font-weight:700':'color:var(--alert-coral);font-weight:700'" x-text="splits.reduce((a,s)=>a+Number(s.pct),0)+'%'"></span>
+              (must equal 100%)
+            </div>
+          </div>
+
+          <!-- Schedule -->
+          <div class="card" style="padding:24px">
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy);margin-bottom:20px">Schedule</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Registration Deadline</label>
+                <input type="datetime-local" class="form-input" x-model="deadline" id="event-deadline">
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Event Start Time</label>
+                <input type="datetime-local" class="form-input" x-model="startAt" id="event-start-at">
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div style="display:flex;gap:10px">
+            <button onclick="Toast.success('Draft Saved','Event saved as draft')" class="btn btn-secondary" id="save-draft-btn">Save Draft</button>
+            <button onclick="Toast.success('Published!','Event is now live and accepting registrations')" class="btn btn-primary" style="flex:1;justify-content:center" id="publish-event-btn">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Publish Event
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview Panel -->
+        <div style="position:sticky;top:84px">
+          <div class="card">
+            <div class="card-header">
+              <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px">Live Preview</span>
+              <span class="badge badge-indigo">REGISTERING</span>
+            </div>
+            <div style="height:80px;background:linear-gradient(135deg,var(--indigo-50),#DDE0FD);position:relative;overflow:hidden">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;color:var(--prize-gold)">
+                ৳<span x-text="estPool"></span>
+              </div>
+            </div>
+            <div style="padding:16px">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--signal-indigo);margin-bottom:6px" x-text="category||'Category'"></div>
+              <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--ink-navy);margin-bottom:10px" x-text="name||'Event Title'"></div>
+              <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--slate)">
+                <div style="display:flex;justify-content:space-between"><span>Entry Fee</span><span class="mono" style="font-weight:700;color:var(--ink-navy)" x-text="'৳'+fee"></span></div>
+                <div style="display:flex;justify-content:space-between"><span>Questions</span><span x-text="questions+' Q\\'s'"></span></div>
+                <div style="display:flex;justify-content:space-between"><span>Time per Q</span><span x-text="timePerQ+'s'"></span></div>
+                <div style="display:flex;justify-content:space-between"><span>Prize Pool</span><span class="mono" style="color:var(--prize-gold);font-weight:700" x-text="'≈ ৳'+estPool+'+'"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-layout.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAdminSidebar('events');
+    renderAdminTopbar('Create Event', 'Configure and publish a new quiz event');
+  });
+</script>
+</body>
+</html>

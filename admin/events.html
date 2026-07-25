@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — QuizArena Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body style="background:var(--paper)">
+<div id="sidebar-overlay" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;backdrop-filter:blur(2px)"></div>
+<div class="admin-layout">
+  <div id="admin-sidebar-root"></div>
+  <div class="admin-content">
+    <div id="admin-topbar-root"></div>
+    <main class="admin-main">
+      <div class="page-header">
+        <div><h2 class="page-title">Events</h2><p class="page-subtitle">Manage all quiz events — create, edit, publish, close</p></div>
+        <a href="event-create.html" class="btn btn-primary" id="new-event-btn">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          Create Event
+        </a>
+      </div>
+
+      <!-- Quick stats -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px" class="md:grid-cols-4 grid-cols-2">
+        <div class="admin-stat-card"><div class="admin-stat-icon coral"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">1</div><div class="admin-stat-label">Live Now</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon gold"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">4</div><div class="admin-stat-label">Upcoming</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon indigo"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">3</div><div class="admin-stat-label">Registering</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon green"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">320</div><div class="admin-stat-label">Completed</div></div></div>
+      </div>
+
+      <!-- Events Table -->
+      <div class="card">
+        <div class="card-header">
+          <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px">All Events</span>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="text" placeholder="Search events..." class="form-input" style="height:32px;width:180px;font-size:12px;padding:6px 10px" id="events-search-admin">
+            <select class="form-select" style="width:120px;height:32px;font-size:12px;padding:5px 28px 5px 8px">
+              <option>All Status</option>
+              <option>Live</option>
+              <option>Upcoming</option>
+              <option>Registering</option>
+              <option>Completed</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrapper" style="border:none;border-radius:0">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Event Name</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Fee/Pool</th>
+                <th>Enrolled</th>
+                <th>Deadline</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div style="font-weight:600;font-size:13px;color:var(--ink-navy)">General Knowledge Championship</div><div style="font-size:11px;color:var(--slate)">10 Q · 20s/Q</div></td>
+                <td><span style="font-size:12px;color:var(--slate)">Gen. Knowledge</span></td>
+                <td><span class="badge badge-live">LIVE</span></td>
+                <td class="mono"><div>৳50</div><div style="font-size:11px;color:var(--prize-gold)">৳4,200 pool</div></td>
+                <td><span style="font-weight:700;color:var(--ink-navy)">84</span></td>
+                <td style="font-size:12px;color:var(--slate)">Jul 25, 10:00 PM</td>
+                <td>
+                  <div style="display:flex;gap:4px">
+                    <button onclick="Toast.info('Event','Close event and calculate results?')" class="btn btn-danger btn-xs">Close</button>
+                    <a href="event-create.html" class="btn btn-secondary btn-xs">Edit</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:600;font-size:13px;color:var(--ink-navy)">Science & Technology Mega Quiz</div><div style="font-size:11px;color:var(--slate)">15 Q · 15s/Q</div></td>
+                <td><span style="font-size:12px;color:var(--slate)">Science</span></td>
+                <td><span class="badge badge-gold">UPCOMING</span></td>
+                <td class="mono"><div>৳100</div><div style="font-size:11px;color:var(--prize-gold)">৳6,500 est.</div></td>
+                <td><span style="font-weight:700;color:var(--ink-navy)">47</span></td>
+                <td style="font-size:12px;color:var(--slate)">Jul 26, 2:00 PM</td>
+                <td>
+                  <div style="display:flex;gap:4px">
+                    <a href="event-create.html" class="btn btn-secondary btn-xs">Edit</a>
+                    <button onclick="Toast.warning('Cancel','This will refund all enrolled participants')" class="btn btn-ghost btn-xs">Cancel</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:600;font-size:13px;color:var(--ink-navy)">Bangladesh History & Culture</div><div style="font-size:11px;color:var(--slate)">12 Q · 20s/Q</div></td>
+                <td><span style="font-size:12px;color:var(--slate)">History</span></td>
+                <td><span class="badge badge-indigo">REGISTERING</span></td>
+                <td class="mono"><div>৳30</div><div style="font-size:11px;color:var(--prize-gold)">৳3,000 est.</div></td>
+                <td><span style="font-weight:700;color:var(--ink-navy)">23</span></td>
+                <td style="font-size:12px;color:var(--slate)">Jul 27, 10:00 AM</td>
+                <td>
+                  <div style="display:flex;gap:4px">
+                    <a href="event-create.html" class="btn btn-secondary btn-xs">Edit</a>
+                    <button onclick="Toast.warning('Cancel','Cancel event and refund entries?')" class="btn btn-ghost btn-xs">Cancel</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:600;font-size:13px;color:var(--ink-navy)">World Geography Masters</div><div style="font-size:11px;color:var(--slate)">15 Q · 18s/Q</div></td>
+                <td><span style="font-size:12px;color:var(--slate)">Geography</span></td>
+                <td><span class="badge badge-indigo">REGISTERING</span></td>
+                <td class="mono"><div>৳60</div><div style="font-size:11px;color:var(--prize-gold)">৳4,800 est.</div></td>
+                <td><span style="font-weight:700;color:var(--ink-navy)">29</span></td>
+                <td style="font-size:12px;color:var(--slate)">Jul 30, 2:00 PM</td>
+                <td>
+                  <div style="display:flex;gap:4px">
+                    <a href="event-create.html" class="btn btn-secondary btn-xs">Edit</a>
+                    <button class="btn btn-ghost btn-xs">Cancel</button>
+                  </div>
+                </td>
+              </tr>
+              <tr style="opacity:0.6">
+                <td><div style="font-weight:600;font-size:13px;color:var(--ink-navy)">Current Affairs — Weekly Quiz</div><div style="font-size:11px;color:var(--slate)">10 Q · 15s/Q</div></td>
+                <td><span style="font-size:12px;color:var(--slate)">Current Affairs</span></td>
+                <td><span class="badge badge-slate">COMPLETED</span></td>
+                <td class="mono"><div>৳20</div><div style="font-size:11px;color:var(--slate)">৳1,800 paid</div></td>
+                <td><span style="font-weight:700;color:var(--ink-navy)">90</span></td>
+                <td style="font-size:12px;color:var(--slate)">Jul 24, 6:00 PM</td>
+                <td><button onclick="Toast.info('Results','View event results and leaderboard')" class="btn btn-secondary btn-xs">Results</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-layout.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAdminSidebar('events');
+    renderAdminTopbar('Events Management', 'Create, manage, and close quiz events');
+  });
+</script>
+</body>
+</html>

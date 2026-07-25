@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deposit Approvals — QuizArena Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+</head>
+<body style="background:var(--paper)">
+<div id="sidebar-overlay" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;backdrop-filter:blur(2px)"></div>
+
+<div class="admin-layout">
+  <div id="admin-sidebar-root"></div>
+
+  <div class="admin-content">
+    <div id="admin-topbar-root"></div>
+
+    <main class="admin-main" x-data="{
+      selected: null,
+      deposits: [
+        {id:1,user:'Rafiqul Islam',phone:'01812XXXXXX',method:'bKash',sender:'01812XXXXXX',txid:'BK8472XYZ12',amount:500,screenshot:true,submitted:'2026-07-25 09:05',status:'pending'},
+        {id:2,user:'Saima Akhter',phone:'01711XXXXXX',method:'Nagad',sender:'01711XXXXXX',txid:'NG3291THAB',amount:200,screenshot:false,submitted:'2026-07-25 08:48',status:'pending'},
+        {id:3,user:'Tariq Hassan',phone:'01916XXXXXX',method:'bKash',sender:'01916XXXXXX',txid:'BK9001ZACC',amount:1000,screenshot:true,submitted:'2026-07-25 08:30',status:'pending'},
+        {id:4,user:'Nasrin Jahan',phone:'01612XXXXXX',method:'Rocket',sender:'01612XXXXXX',txid:'RK2247BBDD',amount:300,screenshot:true,submitted:'2026-07-25 07:55',status:'pending'},
+        {id:5,user:'Mahmud Noor',phone:'01511XXXXXX',method:'Upay',sender:'01511XXXXXX',txid:'UP1192XYZZ',amount:150,screenshot:false,submitted:'2026-07-25 07:30',status:'pending'},
+        {id:6,user:'Rina Begum',phone:'01314XXXXXX',method:'bKash',sender:'01314XXXXXX',txid:'BK0039MNOP',amount:750,screenshot:true,submitted:'2026-07-24 22:10',status:'approved'},
+        {id:7,user:'Karim Uddin',phone:'01813XXXXXX',method:'Nagad',sender:'01813XXXXXX',txid:'NG9982QRST',amount:400,screenshot:false,submitted:'2026-07-24 20:45',status:'rejected'},
+      ],
+      filterStatus: 'pending',
+      note: '',
+      get filtered(){ return this.deposits.filter(d => d.status === this.filterStatus) },
+      get pendingCount(){ return this.deposits.filter(d=>d.status==='pending').length },
+      approve(dep){
+        dep.status='approved';
+        this.selected=null;
+        Toast.success('Approved',dep.user+' — ৳'+dep.amount+' credited to wallet');
+      },
+      reject(dep){
+        dep.status='rejected';
+        this.selected=null;
+        Toast.error('Rejected',dep.user+\"'s deposit rejected\");
+      }
+    }">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Deposit Approvals</h2>
+          <p class="page-subtitle">Review and approve user deposit submissions</p>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span style="font-size:12px;color:var(--slate)">Keyboard:</span>
+          <kbd style="background:var(--line);border-radius:4px;padding:2px 6px;font-size:11px">A</kbd>
+          <span style="font-size:12px;color:var(--slate)">Approve</span>
+          <kbd style="background:var(--line);border-radius:4px;padding:2px 6px;font-size:11px">R</kbd>
+          <span style="font-size:12px;color:var(--slate)">Reject</span>
+        </div>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="tabs" style="margin-bottom:20px">
+        <button class="tab-btn" :class="filterStatus==='pending'?'active':''" @click="filterStatus='pending'">
+          Pending <span class="badge badge-coral" x-text="pendingCount" style="margin-left:4px"></span>
+        </button>
+        <button class="tab-btn" :class="filterStatus==='approved'?'active':''" @click="filterStatus='approved'">Approved</button>
+        <button class="tab-btn" :class="filterStatus==='rejected'?'active':''" @click="filterStatus='rejected'">Rejected</button>
+      </div>
+
+      <!-- Inbox Layout: List + Detail -->
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start" class="md:grid-cols-2 grid-cols-1">
+
+        <!-- Deposit List -->
+        <div class="card" style="overflow:hidden">
+          <template x-for="dep in filtered" :key="dep.id">
+            <div @click="selected=dep"
+              style="padding:14px 16px;border-bottom:1px solid var(--line);cursor:pointer;transition:background 0.15s"
+              :class="{'bg-indigo-50': selected&&selected.id===dep.id}"
+              :style="selected&&selected.id===dep.id?'background:var(--indigo-50);border-left:3px solid var(--signal-indigo);':'border-left:3px solid transparent'"
+              onmouseover="if(!this.classList.contains('selected-row'))this.style.background='var(--paper)'"
+              onmouseout="if(!this.classList.contains('selected-row'))this.style.background=''"
+            >
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span style="font-size:14px;font-weight:700;color:var(--ink-navy)" x-text="dep.user"></span>
+                  <span class="badge" :class="{'badge-indigo':dep.method==='bKash','badge-gold':dep.method==='Nagad','badge-slate':dep.method==='Rocket'||dep.method==='Upay'}" x-text="dep.method" style="font-size:10px"></span>
+                </div>
+                <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;color:var(--correct-green)" x-text="'৳'+dep.amount"></span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <span style="font-size:11px;color:var(--slate);font-family:'JetBrains Mono',monospace" x-text="dep.txid"></span>
+                <span style="font-size:11px;color:var(--slate)" x-text="dep.submitted"></span>
+              </div>
+            </div>
+          </template>
+          <div x-show="filtered.length===0" class="empty-state">
+            <div class="empty-title">No deposits in this queue</div>
+            <p class="empty-desc" x-text="'No '+filterStatus+' deposits found'"></p>
+          </div>
+        </div>
+
+        <!-- Deposit Detail Panel -->
+        <div x-show="selected">
+          <div class="card" style="position:sticky;top:84px">
+            <div class="card-header">
+              <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px">Deposit Detail</span>
+              <button @click="selected=null" class="modal-close"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+            <div class="card-body" x-show="selected">
+              <!-- User info -->
+              <div style="padding:12px;background:var(--paper);border-radius:10px;margin-bottom:14px">
+                <div style="font-size:11px;color:var(--slate);margin-bottom:4px">User</div>
+                <div style="font-weight:700;font-size:14px;color:var(--ink-navy)" x-text="selected&&selected.user"></div>
+                <div style="font-size:12px;color:var(--slate)" x-text="selected&&selected.phone"></div>
+              </div>
+
+              <!-- Transaction details -->
+              <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+                  <span style="color:var(--slate)">Method</span>
+                  <span class="badge badge-indigo" x-text="selected&&selected.method"></span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px">
+                  <span style="color:var(--slate)">Sender Number</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-weight:600" x-text="selected&&selected.sender"></span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px">
+                  <span style="color:var(--slate)">Transaction ID</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--signal-indigo)" x-text="selected&&selected.txid"></span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px">
+                  <span style="color:var(--slate)">Amount Claimed</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;color:var(--correct-green)" x-text="selected&&'৳'+selected.amount"></span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px">
+                  <span style="color:var(--slate)">Screenshot</span>
+                  <span x-text="selected&&selected.screenshot?'Uploaded':'Not uploaded'" :style="selected&&selected.screenshot?'color:var(--correct-green)':'color:var(--alert-coral)'" style="font-size:12px;font-weight:600"></span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px">
+                  <span style="color:var(--slate)">Submitted</span>
+                  <span style="color:var(--ink-navy)" x-text="selected&&selected.submitted"></span>
+                </div>
+              </div>
+
+              <!-- Admin note -->
+              <div class="form-group" style="margin-bottom:14px">
+                <label class="form-label">Admin Note (optional)</label>
+                <textarea x-model="note" class="form-textarea" rows="2" placeholder="Reason for rejection, or note for record..." id="admin-deposit-note"></textarea>
+              </div>
+
+              <!-- Approve / Reject -->
+              <div style="display:flex;gap:8px" x-show="selected&&selected.status==='pending'">
+                <button @click="reject(selected)" data-action="reject" class="btn btn-danger" style="flex:1;justify-content:center" id="reject-deposit-btn">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                  Reject
+                </button>
+                <button @click="approve(selected)" data-action="approve" class="btn btn-success" style="flex:2;justify-content:center" id="approve-deposit-btn">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  Approve & Credit
+                </button>
+              </div>
+              <div x-show="selected&&selected.status!=='pending'">
+                <div class="badge" :class="selected&&selected.status==='approved'?'badge-green':'badge-coral'" x-text="selected&&selected.status.charAt(0).toUpperCase()+selected.status.slice(1)" style="width:100%;justify-content:center;padding:10px;font-size:13px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty detail state -->
+        <div x-show="!selected" class="card" style="position:sticky;top:84px;padding:40px;text-align:center;color:var(--slate)">
+          <div style="font-size:32px;margin-bottom:12px">←</div>
+          <div style="font-size:13px">Select a deposit from the list to review its details</div>
+          <div style="font-size:11px;margin-top:6px">Press <kbd style="background:var(--line);border-radius:3px;padding:1px 5px">A</kbd> to approve or <kbd style="background:var(--line);border-radius:3px;padding:1px 5px">R</kbd> to reject the first pending item</div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-layout.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAdminSidebar('deposits');
+    renderAdminTopbar('Deposit Approvals', 'Review user deposit submissions');
+  });
+</script>
+</body>
+</html>

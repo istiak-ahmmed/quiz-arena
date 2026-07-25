@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users — QuizArena Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body style="background:var(--paper)">
+<div id="sidebar-overlay" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;backdrop-filter:blur(2px)"></div>
+<div class="admin-layout">
+  <div id="admin-sidebar-root"></div>
+  <div class="admin-content">
+    <div id="admin-topbar-root"></div>
+    <main class="admin-main" x-data="{selected:null}">
+      <div class="page-header">
+        <div><h2 class="page-title">Users</h2><p class="page-subtitle">Manage participant accounts and balances</p></div>
+        <div style="display:flex;gap:8px">
+          <input type="text" placeholder="Search users..." class="form-input" style="height:36px;width:200px;font-size:13px" id="user-search">
+          <select class="form-select" style="width:130px;height:36px;font-size:13px">
+            <option>All Status</option>
+            <option>Active</option>
+            <option>Banned</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">
+        <div class="admin-stat-card"><div class="admin-stat-icon indigo"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">24,832</div><div class="admin-stat-label">Total Users</div><div class="admin-stat-trend up">+148 this week</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon green"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">24,810</div><div class="admin-stat-label">Active</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon coral"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">22</div><div class="admin-stat-label">Banned</div></div></div>
+      </div>
+
+      <!-- Users Table -->
+      <div class="card">
+        <div class="table-wrapper" style="border:none;border-radius:0">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Phone</th>
+                <th>Wallet</th>
+                <th>Quizzes Played</th>
+                <th>Total Winnings</th>
+                <th>Status</th>
+                <th>Joined</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr @click="selected={name:'Rafiqul Islam',email:'rafiq@email.com',phone:'01812XXXXXX',wallet:1240.5,played:12,wins:3,prize:820,status:'active',joined:'Mar 5, 2026',referral:'RAFIQ42'}" style="cursor:pointer">
+                <td>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div class="avatar-placeholder" style="width:30px;height:30px;font-size:10px;background:var(--indigo-50);color:var(--signal-indigo)">RI</div>
+                    <div><div style="font-weight:600;font-size:13px;color:var(--ink-navy)">Rafiqul Islam</div><div style="font-size:11px;color:var(--slate)">rafiq@email.com</div></div>
+                  </div>
+                </td>
+                <td class="mono" style="font-size:12px">01812XXXXXX</td>
+                <td class="mono" style="font-weight:700;color:var(--correct-green)">৳1,240.50</td>
+                <td>12</td>
+                <td class="mono" style="color:var(--prize-gold)">৳820</td>
+                <td><span class="badge badge-green">Active</span></td>
+                <td style="font-size:12px;color:var(--slate)">Mar 5, 2026</td>
+                <td>
+                  <div style="display:flex;gap:4px">
+                    <button onclick="event.stopPropagation();Toast.info('Edit','Open user profile editor')" class="btn btn-secondary btn-xs">Edit</button>
+                    <button onclick="event.stopPropagation();Toast.warning('Ban','Ban this user? All active sessions will be terminated.')" class="btn btn-danger btn-xs">Ban</button>
+                  </div>
+                </td>
+              </tr>
+              <tr style="cursor:pointer">
+                <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-placeholder" style="width:30px;height:30px;font-size:10px;background:#FEF3C7;color:#92400E">SA</div><div><div style="font-weight:600;font-size:13px;color:var(--ink-navy)">Saima Akhter</div><div style="font-size:11px;color:var(--slate)">saima@email.com</div></div></div></td>
+                <td class="mono" style="font-size:12px">01711XXXXXX</td>
+                <td class="mono" style="font-weight:700;color:var(--correct-green)">৳640.00</td>
+                <td>8</td>
+                <td class="mono" style="color:var(--prize-gold)">৳525</td>
+                <td><span class="badge badge-green">Active</span></td>
+                <td style="font-size:12px;color:var(--slate)">Apr 12, 2026</td>
+                <td><div style="display:flex;gap:4px"><button class="btn btn-secondary btn-xs" onclick="event.stopPropagation()">Edit</button><button class="btn btn-danger btn-xs" onclick="event.stopPropagation()">Ban</button></div></td>
+              </tr>
+              <tr style="cursor:pointer">
+                <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-placeholder" style="width:30px;height:30px;font-size:10px;background:#D1FAE5;color:#065F46">TH</div><div><div style="font-weight:600;font-size:13px;color:var(--ink-navy)">Tariq Hassan</div><div style="font-size:11px;color:var(--slate)">tariq@email.com</div></div></div></td>
+                <td class="mono" style="font-size:12px">01916XXXXXX</td>
+                <td class="mono" style="font-weight:700;color:var(--correct-green)">৳2,100.00</td>
+                <td>24</td>
+                <td class="mono" style="color:var(--prize-gold)">৳2,840</td>
+                <td><span class="badge badge-green">Active</span></td>
+                <td style="font-size:12px;color:var(--slate)">Feb 28, 2026</td>
+                <td><div style="display:flex;gap:4px"><button class="btn btn-secondary btn-xs" onclick="event.stopPropagation()">Edit</button><button class="btn btn-danger btn-xs" onclick="event.stopPropagation()">Ban</button></div></td>
+              </tr>
+              <tr style="cursor:pointer;background:#FEF2F2">
+                <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-placeholder" style="width:30px;height:30px;font-size:10px;background:#FEE2E2;color:#991B1B">SU</div><div><div style="font-weight:600;font-size:13px;color:var(--ink-navy)">Sohel Uddin</div><div style="font-size:11px;color:var(--slate)">sohel@email.com</div></div></div></td>
+                <td class="mono" style="font-size:12px">01612XXXXXX</td>
+                <td class="mono" style="font-weight:700;color:var(--slate)">৳0.00</td>
+                <td>3</td>
+                <td class="mono" style="color:var(--slate)">৳0</td>
+                <td><span class="badge badge-coral">Banned</span></td>
+                <td style="font-size:12px;color:var(--slate)">Jun 10, 2026</td>
+                <td><div style="display:flex;gap:4px"><button class="btn btn-secondary btn-xs" onclick="event.stopPropagation()">Edit</button><button onclick="event.stopPropagation();Toast.success('Unbanned','User can now log in again')" class="btn btn-success btn-xs">Unban</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer" style="display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:12px;color:var(--slate)">Showing 1–4 of 24,832</div>
+          <div style="display:flex;gap:4px">
+            <button class="btn btn-secondary btn-sm btn-icon">←</button>
+            <button class="btn btn-primary btn-sm" style="min-width:32px">1</button>
+            <button class="btn btn-secondary btn-sm" style="min-width:32px">2</button>
+            <span style="line-height:32px;padding:0 8px;font-size:12px;color:var(--slate)">…</span>
+            <button class="btn btn-secondary btn-sm" style="min-width:32px">2484</button>
+            <button class="btn btn-secondary btn-sm btn-icon">→</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Detail Slide-over -->
+      <div x-show="selected" style="position:fixed;right:0;top:0;height:100vh;width:340px;background:var(--surface-white);border-left:1px solid var(--line);box-shadow:-4px 0 20px rgba(0,0,0,0.08);z-index:200;overflow-y:auto;padding:24px" x-cloak>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+          <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--ink-navy)">User Profile</div>
+          <button @click="selected=null" class="modal-close"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        </div>
+        <div x-show="selected">
+          <div style="text-align:center;margin-bottom:20px">
+            <div class="avatar-placeholder" style="width:64px;height:64px;font-size:22px;margin:0 auto 10px;background:var(--indigo-50);color:var(--signal-indigo)">RI</div>
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:16px;color:var(--ink-navy)" x-text="selected&&selected.name"></div>
+            <div style="font-size:12px;color:var(--slate)" x-text="selected&&selected.email"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px;background:var(--paper);border-radius:8px"><span style="color:var(--slate)">Wallet</span><span class="mono" style="font-weight:700;color:var(--correct-green)" x-text="'৳'+(selected&&selected.wallet)"></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px;background:var(--paper);border-radius:8px"><span style="color:var(--slate)">Quizzes Played</span><span style="font-weight:700" x-text="selected&&selected.played"></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px;background:var(--paper);border-radius:8px"><span style="color:var(--slate)">Total Winnings</span><span class="mono" style="font-weight:700;color:var(--prize-gold)" x-text="'৳'+(selected&&selected.prize)"></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px;background:var(--paper);border-radius:8px"><span style="color:var(--slate)">Status</span><span class="badge badge-green">Active</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px;background:var(--paper);border-radius:8px"><span style="color:var(--slate)">Referral Code</span><span class="mono" style="font-weight:700;color:var(--signal-indigo)" x-text="selected&&selected.referral"></span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button onclick="Toast.info('Balance','Manual balance adjustment')" class="btn btn-secondary" style="justify-content:center">Adjust Balance</button>
+            <button onclick="Toast.warning('Ban','Are you sure you want to ban this user?')" class="btn btn-danger" style="justify-content:center">Ban User</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-layout.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAdminSidebar('users');
+    renderAdminTopbar('Users', 'Manage participant accounts and balances');
+  });
+</script>
+</body>
+</html>

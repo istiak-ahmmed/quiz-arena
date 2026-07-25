@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question Bank — QuizArena Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body style="background:var(--paper)">
+<div id="sidebar-overlay" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;backdrop-filter:blur(2px)"></div>
+<div class="admin-layout">
+  <div id="admin-sidebar-root"></div>
+  <div class="admin-content">
+    <div id="admin-topbar-root"></div>
+    <main class="admin-main">
+      <div class="page-header">
+        <div><h2 class="page-title">Question Bank</h2><p class="page-subtitle">Manage MCQ questions used in quiz events</p></div>
+        <button onclick="openModal('add-question-modal')" class="btn btn-primary" id="add-question-btn">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          Add Question
+        </button>
+      </div>
+
+      <!-- Filter Bar -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+        <input type="text" placeholder="Search questions..." class="form-input" style="flex:1;min-width:200px;max-width:300px;height:36px;font-size:13px" id="q-search">
+        <select class="form-select" style="width:160px;height:36px;font-size:13px" id="q-category-filter">
+          <option value="">All Categories</option>
+          <option>General Knowledge</option>
+          <option>Science</option>
+          <option>Mathematics</option>
+          <option>History</option>
+          <option>English</option>
+          <option>Geography</option>
+          <option>Current Affairs</option>
+          <option>Technology</option>
+        </select>
+        <div style="font-size:13px;color:var(--slate);display:flex;align-items:center;margin-left:auto">
+          <strong style="color:var(--ink-navy)">1,247</strong>&nbsp;questions total
+        </div>
+      </div>
+
+      <!-- Category Pills -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+        <button class="btn btn-primary btn-sm" style="font-size:11px">All (1,247)</button>
+        <button class="btn btn-secondary btn-sm" style="font-size:11px">Gen. Knowledge (284)</button>
+        <button class="btn btn-secondary btn-sm" style="font-size:11px">Science (198)</button>
+        <button class="btn btn-secondary btn-sm" style="font-size:11px">Mathematics (156)</button>
+        <button class="btn btn-secondary btn-sm" style="font-size:11px">History (142)</button>
+        <button class="btn btn-secondary btn-sm" style="font-size:11px">English (134)</button>
+        <button class="btn btn-secondary btn-sm" style="font-size:11px">Geography (118)</button>
+        <button class="btn btn-secondary btn-sm" style="font-size:11px">Current Affairs (215)</button>
+      </div>
+
+      <!-- Questions Table -->
+      <div class="card">
+        <div class="table-wrapper" style="border:none;border-radius:0">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width:32px"><input type="checkbox" id="select-all-q" style="cursor:pointer"></th>
+                <th>Question</th>
+                <th>Category</th>
+                <th>Options</th>
+                <th>Used In</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" style="cursor:pointer"></td>
+                <td style="max-width:280px"><div style="font-size:13px;font-weight:500;color:var(--ink-navy);line-height:1.4">What does CPU stand for?</div></td>
+                <td><span class="badge badge-indigo" style="font-size:10px">Technology</span></td>
+                <td style="max-width:200px;font-size:11px;color:var(--slate)">
+                  <div style="display:flex;flex-direction:column;gap:2px">
+                    <span style="color:var(--correct-green);font-weight:600">✓ Central Processing Unit</span>
+                    <span>Computer Personal Unit</span>
+                    <span>Central Power Unit</span>
+                    <span>Computer Processing Utility</span>
+                  </div>
+                </td>
+                <td><span style="font-size:12px;color:var(--slate)">4 events</span></td>
+                <td><div style="display:flex;gap:4px"><button onclick="Toast.info('Edit','Open question editor')" class="btn btn-secondary btn-xs">Edit</button><button onclick="Toast.warning('Delete','Delete this question?')" class="btn btn-danger btn-xs">Del</button></div></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" style="cursor:pointer"></td>
+                <td style="max-width:280px"><div style="font-size:13px;font-weight:500;color:var(--ink-navy);line-height:1.4">Who invented the World Wide Web?</div></td>
+                <td><span class="badge badge-indigo" style="font-size:10px">Technology</span></td>
+                <td style="max-width:200px;font-size:11px;color:var(--slate)">
+                  <div style="display:flex;flex-direction:column;gap:2px">
+                    <span>Bill Gates</span>
+                    <span style="color:var(--correct-green);font-weight:600">✓ Tim Berners-Lee</span>
+                    <span>Linus Torvalds</span>
+                    <span>Alan Turing</span>
+                  </div>
+                </td>
+                <td><span style="font-size:12px;color:var(--slate)">6 events</span></td>
+                <td><div style="display:flex;gap:4px"><button class="btn btn-secondary btn-xs">Edit</button><button class="btn btn-danger btn-xs">Del</button></div></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" style="cursor:pointer"></td>
+                <td style="max-width:280px"><div style="font-size:13px;font-weight:500;color:var(--ink-navy);line-height:1.4">When did Bangladesh gain independence?</div></td>
+                <td><span class="badge badge-gold" style="font-size:10px">History</span></td>
+                <td style="max-width:200px;font-size:11px;color:var(--slate)">
+                  <div style="display:flex;flex-direction:column;gap:2px">
+                    <span>1947</span>
+                    <span>1952</span>
+                    <span style="color:var(--correct-green);font-weight:600">✓ 1971</span>
+                    <span>1975</span>
+                  </div>
+                </td>
+                <td><span style="font-size:12px;color:var(--slate)">12 events</span></td>
+                <td><div style="display:flex;gap:4px"><button class="btn btn-secondary btn-xs">Edit</button><button class="btn btn-danger btn-xs">Del</button></div></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" style="cursor:pointer"></td>
+                <td style="max-width:280px"><div style="font-size:13px;font-weight:500;color:var(--ink-navy);line-height:1.4">What is the capital city of Bangladesh?</div></td>
+                <td><span class="badge badge-green" style="font-size:10px">Gen. Knowledge</span></td>
+                <td style="max-width:200px;font-size:11px;color:var(--slate)">
+                  <div style="display:flex;flex-direction:column;gap:2px">
+                    <span style="color:var(--correct-green);font-weight:600">✓ Dhaka</span>
+                    <span>Chittagong</span>
+                    <span>Sylhet</span>
+                    <span>Rajshahi</span>
+                  </div>
+                </td>
+                <td><span style="font-size:12px;color:var(--slate)">18 events</span></td>
+                <td><div style="display:flex;gap:4px"><button class="btn btn-secondary btn-xs">Edit</button><button class="btn btn-danger btn-xs">Del</button></div></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" style="cursor:pointer"></td>
+                <td style="max-width:280px"><div style="font-size:13px;font-weight:500;color:var(--ink-navy);line-height:1.4">What is 2 to the power of 10?</div></td>
+                <td><span class="badge badge-coral" style="font-size:10px">Mathematics</span></td>
+                <td style="max-width:200px;font-size:11px;color:var(--slate)">
+                  <div style="display:flex;flex-direction:column;gap:2px">
+                    <span>512</span>
+                    <span style="color:var(--correct-green);font-weight:600">✓ 1024</span>
+                    <span>2048</span>
+                    <span>256</span>
+                  </div>
+                </td>
+                <td><span style="font-size:12px;color:var(--slate)">3 events</span></td>
+                <td><div style="display:flex;gap:4px"><button class="btn btn-secondary btn-xs">Edit</button><button class="btn btn-danger btn-xs">Del</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer" style="display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:12px;color:var(--slate)">Showing 1–5 of 1,247</div>
+          <div style="display:flex;gap:4px">
+            <button class="btn btn-secondary btn-sm btn-icon">←</button>
+            <button class="btn btn-primary btn-sm" style="min-width:32px">1</button>
+            <button class="btn btn-secondary btn-sm" style="min-width:32px">2</button>
+            <button class="btn btn-secondary btn-sm" style="min-width:32px">3</button>
+            <button class="btn btn-secondary btn-sm btn-icon">→</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Add Question Modal -->
+<div id="add-question-modal" class="modal-overlay" style="display:none">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <h2 class="modal-title">Add Question</h2>
+      <button onclick="closeModal('add-question-modal')" class="modal-close"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Category <span class="required-star">*</span></label>
+        <select class="form-select" id="q-cat-select">
+          <option>General Knowledge</option>
+          <option>Science</option>
+          <option>Mathematics</option>
+          <option>History</option>
+          <option>English</option>
+          <option>Geography</option>
+          <option>Current Affairs</option>
+          <option>Technology</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Question Text <span class="required-star">*</span></label>
+        <textarea class="form-textarea" rows="3" placeholder="Write the question here..." id="q-text"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Answer Options (mark the correct one)</label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:24px;height:24px;background:var(--indigo-50);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--signal-indigo);flex-shrink:0">A</span>
+            <input type="text" class="form-input" placeholder="Option A" id="q-opt-a">
+            <input type="radio" name="correct" value="A" style="flex-shrink:0;width:16px;height:16px;cursor:pointer" title="Mark as correct">
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:24px;height:24px;background:#D1FAE5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#065F46;flex-shrink:0">B</span>
+            <input type="text" class="form-input" placeholder="Option B" id="q-opt-b">
+            <input type="radio" name="correct" value="B" style="flex-shrink:0;width:16px;height:16px;cursor:pointer">
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:24px;height:24px;background:#FEF3C7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#92400E;flex-shrink:0">C</span>
+            <input type="text" class="form-input" placeholder="Option C" id="q-opt-c">
+            <input type="radio" name="correct" value="C" style="flex-shrink:0;width:16px;height:16px;cursor:pointer">
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:24px;height:24px;background:#FEE2E2;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#991B1B;flex-shrink:0">D</span>
+            <input type="text" class="form-input" placeholder="Option D" id="q-opt-d">
+            <input type="radio" name="correct" value="D" style="flex-shrink:0;width:16px;height:16px;cursor:pointer">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeModal('add-question-modal')" class="btn btn-ghost">Cancel</button>
+      <button onclick="Toast.success('Question Added','Question saved to bank');closeModal('add-question-modal')" class="btn btn-primary" id="save-question-btn">Save Question</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-layout.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAdminSidebar('question-bank');
+    renderAdminTopbar('Question Bank', 'Manage MCQ question pool for quiz events');
+  });
+</script>
+</body>
+</html>

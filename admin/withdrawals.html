@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Withdrawal Approvals — QuizArena Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body style="background:var(--paper)">
+<div id="sidebar-overlay" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;backdrop-filter:blur(2px)"></div>
+<div class="admin-layout">
+  <div id="admin-sidebar-root"></div>
+  <div class="admin-content">
+    <div id="admin-topbar-root"></div>
+    <main class="admin-main">
+      <div class="page-header">
+        <div><h2 class="page-title">Withdrawal Approvals</h2><p class="page-subtitle">Process user withdrawal requests via MFS</p></div>
+        <div style="font-size:12px;color:var(--slate)">Keyboard: <kbd style="background:var(--line);border-radius:3px;padding:1px 5px;font-size:11px">A</kbd> Process</div>
+      </div>
+
+      <!-- Stats -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px" class="md:grid-cols-4 grid-cols-2">
+        <div class="admin-stat-card"><div class="admin-stat-icon gold"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">4</div><div class="admin-stat-label">Pending</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon indigo"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">৳2,950</div><div class="admin-stat-label">Pending Amount</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon green"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">28</div><div class="admin-stat-label">Processed Today</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon coral"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="admin-stat-body"><div class="admin-stat-num">৳14,200</div><div class="admin-stat-label">Processed Today</div></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px">Pending Withdrawals</span>
+          <select class="form-select" style="width:auto;font-size:12px;padding:5px 30px 5px 10px">
+            <option>All Methods</option>
+            <option>bKash</option>
+            <option>Nagad</option>
+            <option>Rocket</option>
+          </select>
+        </div>
+        <div class="table-wrapper" style="border:none;border-radius:0">
+          <table class="data-table">
+            <thead>
+              <tr><th>User</th><th>Method</th><th>MFS Number</th><th>Amount</th><th>Requested</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody id="withdrawal-table">
+              <tr class="row-pending" id="wr-1">
+                <td><div style="font-weight:600;font-size:13px">Saima Akhter</div><div style="font-size:11px;color:var(--slate)">saima@email.com</div></td>
+                <td><span class="badge badge-indigo">bKash</span></td>
+                <td class="mono">01711XXXXXX</td>
+                <td class="mono" style="font-weight:700;color:var(--ink-navy)">৳500</td>
+                <td style="font-size:12px;color:var(--slate)">Jul 25, 09:30</td>
+                <td><span class="badge badge-slate">Pending</span></td>
+                <td>
+                  <div style="display:flex;gap:4px">
+                    <button data-action="approve" onclick="processWithdrawal('wr-1','Saima Akhter','৳500')" class="btn btn-success btn-xs" title="Process (A)">Process</button>
+                    <button data-action="reject" onclick="rejectWithdrawal('wr-1','Saima Akhter')" class="btn btn-danger btn-xs">Reject</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="row-pending" id="wr-2">
+                <td><div style="font-weight:600;font-size:13px">Rafiqul Islam</div><div style="font-size:11px;color:var(--slate)">rafiq@email.com</div></td>
+                <td><span class="badge badge-gold">Nagad</span></td>
+                <td class="mono">01812XXXXXX</td>
+                <td class="mono" style="font-weight:700;color:var(--ink-navy)">৳300</td>
+                <td style="font-size:12px;color:var(--slate)">Jul 24, 22:15</td>
+                <td><span class="badge badge-slate">Pending</span></td>
+                <td>
+                  <div style="display:flex;gap:4px">
+                    <button data-action="approve" onclick="processWithdrawal('wr-2','Rafiqul Islam','৳300')" class="btn btn-success btn-xs">Process</button>
+                    <button data-action="reject" onclick="rejectWithdrawal('wr-2','Rafiqul Islam')" class="btn btn-danger btn-xs">Reject</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="row-pending" id="wr-3">
+                <td><div style="font-weight:600;font-size:13px">Tariq Hassan</div><div style="font-size:11px;color:var(--slate)">tariq@email.com</div></td>
+                <td><span class="badge badge-indigo">bKash</span></td>
+                <td class="mono">01916XXXXXX</td>
+                <td class="mono" style="font-weight:700;color:var(--ink-navy)">৳1,200</td>
+                <td style="font-size:12px;color:var(--slate)">Jul 24, 18:40</td>
+                <td><span class="badge badge-slate">Pending</span></td>
+                <td>
+                  <div style="display:flex;gap:4px">
+                    <button data-action="approve" onclick="processWithdrawal('wr-3','Tariq Hassan','৳1,200')" class="btn btn-success btn-xs">Process</button>
+                    <button data-action="reject" onclick="rejectWithdrawal('wr-3','Tariq Hassan')" class="btn btn-danger btn-xs">Reject</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="row-pending" id="wr-4">
+                <td><div style="font-weight:600;font-size:13px">Nasrin Jahan</div><div style="font-size:11px;color:var(--slate)">nasrin@email.com</div></td>
+                <td><span class="badge badge-slate">Rocket</span></td>
+                <td class="mono">01612XXXXXX</td>
+                <td class="mono" style="font-weight:700;color:var(--ink-navy)">৳950</td>
+                <td style="font-size:12px;color:var(--slate)">Jul 24, 15:20</td>
+                <td><span class="badge badge-indigo">Processing</span></td>
+                <td>
+                  <div style="display:flex;gap:4px">
+                    <button data-action="approve" onclick="processWithdrawal('wr-4','Nasrin Jahan','৳950')" class="btn btn-success btn-xs">Complete</button>
+                    <button data-action="reject" onclick="rejectWithdrawal('wr-4','Nasrin Jahan')" class="btn btn-danger btn-xs">Reject</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Completed today -->
+      <div class="card" style="margin-top:20px">
+        <div class="card-header">
+          <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px">Completed Today</span>
+          <span style="font-size:12px;color:var(--slate)">28 processed · ৳14,200 sent</span>
+        </div>
+        <div class="table-wrapper" style="border:none;border-radius:0">
+          <table class="data-table">
+            <thead><tr><th>User</th><th>Method</th><th>Amount</th><th>Processed At</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><div style="font-size:13px;font-weight:600">Rina Begum</div></td><td><span class="badge badge-indigo">bKash</span></td><td class="mono">৳500</td><td style="font-size:12px;color:var(--slate)">09:15 AM</td><td><span class="badge badge-green">Completed</span></td></tr>
+              <tr><td><div style="font-size:13px;font-weight:600">Karim Uddin</div></td><td><span class="badge badge-gold">Nagad</span></td><td class="mono">৳200</td><td style="font-size:12px;color:var(--slate)">08:45 AM</td><td><span class="badge badge-green">Completed</span></td></tr>
+              <tr><td><div style="font-size:13px;font-weight:600">Minhaz Khan</div></td><td><span class="badge badge-indigo">bKash</span></td><td class="mono">৳800</td><td style="font-size:12px;color:var(--slate)">08:20 AM</td><td><span class="badge badge-green">Completed</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-layout.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAdminSidebar('withdrawals');
+    renderAdminTopbar('Withdrawal Approvals', 'Process user withdrawal requests');
+  });
+
+  function processWithdrawal(rowId, name, amount) {
+    const row = document.getElementById(rowId);
+    if (row) {
+      row.querySelector('td:nth-child(6)').innerHTML = '<span class="badge badge-green">Completed</span>';
+      row.querySelector('td:last-child').innerHTML = '<span style="font-size:11px;color:var(--slate)">Done</span>';
+      row.style.opacity = '0.7';
+    }
+    Toast.success('Processed', `${name} — ${amount} sent via MFS`);
+  }
+
+  function rejectWithdrawal(rowId, name) {
+    const row = document.getElementById(rowId);
+    if (row) {
+      row.querySelector('td:nth-child(6)').innerHTML = '<span class="badge badge-coral">Rejected</span>';
+      row.querySelector('td:last-child').innerHTML = '<span style="font-size:11px;color:var(--slate)">Rejected</span>';
+      row.style.opacity = '0.7';
+    }
+    Toast.error('Rejected', `${name}'s withdrawal rejected. Wallet refunded.`);
+  }
+</script>
+</body>
+</html>

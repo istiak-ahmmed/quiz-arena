@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — QuizArena</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE',100:'#DDE0FD'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+</head>
+<body style="background:var(--paper)">
+<div class="user-layout">
+  <div class="user-topbar">
+    <a href="../index.html" class="user-topbar-logo">Quiz<span>Arena</span></a>
+    <div class="avatar-placeholder avatar-sm" style="font-size:12px">RI</div>
+  </div>
+  <div class="user-main">
+
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Browse Events</h1>
+        <p class="page-subtitle">Enroll in upcoming quiz events using your wallet balance</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--slate)">
+        Wallet: <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--correct-green)">৳1,240.50</span>
+        <a href="wallet.html" class="btn btn-secondary btn-sm">+ Recharge</a>
+      </div>
+    </div>
+
+    <!-- Enrolled banner -->
+    <div style="background:var(--indigo-50);border:1px solid rgba(62,75,240,0.2);border-radius:12px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="badge badge-indigo">Enrolled</span>
+        <span style="font-size:13px;font-weight:600;color:var(--ink-navy)">Science & Tech Mega Quiz</span>
+        <span style="font-size:12px;color:var(--slate)">Starts in <span style="font-family:'JetBrains Mono',monospace;font-weight:700" data-countdown="2026-07-26T14:00:00">2h 30m</span></span>
+      </div>
+      <a href="quiz-play.html" class="btn btn-primary btn-sm">Go to Quiz →</a>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="tabs" style="margin-bottom:20px">
+      <button class="tab-btn active" onclick="filterEvents(this,'all')" id="ev-filter-all">All</button>
+      <button class="tab-btn" onclick="filterEvents(this,'live')" id="ev-filter-live">🔴 Live</button>
+      <button class="tab-btn" onclick="filterEvents(this,'upcoming')" id="ev-filter-upcoming">Upcoming</button>
+      <button class="tab-btn" onclick="filterEvents(this,'registering')" id="ev-filter-registering">Registering</button>
+      <button class="tab-btn" onclick="filterEvents(this,'completed')" id="ev-filter-completed">Completed</button>
+    </div>
+
+    <!-- Events List (vertical on mobile for easy enrollment) -->
+    <div id="events-list" style="display:flex;flex-direction:column;gap:12px">
+      <!-- Event Row 1 - LIVE -->
+      <div class="card card-hover" style="display:flex;gap:0;overflow:hidden" data-status="live">
+        <div style="width:4px;background:var(--correct-green);flex-shrink:0"></div>
+        <div style="padding:16px;flex:1;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div style="width:48px;height:48px;background:linear-gradient(135deg,#EEF0FE,#DDE0FD);border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px">📚</div>
+          <div style="flex:1;min-width:200px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+              <span class="badge badge-live">LIVE</span>
+              <span style="font-size:11px;color:var(--slate)">General Knowledge</span>
+            </div>
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--ink-navy);margin-bottom:4px">General Knowledge Championship — July 2026</div>
+            <div style="display:flex;gap:12px;font-size:12px;color:var(--slate);flex-wrap:wrap">
+              <span>10 Questions</span>
+              <span>·</span>
+              <span>20s/Q</span>
+              <span>·</span>
+              <span>84 enrolled</span>
+            </div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--prize-gold);margin-bottom:2px">৳4,200</div>
+            <div style="font-size:11px;color:var(--slate);margin-bottom:8px">prize pool</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--signal-indigo)">৳50</div>
+            <div style="font-size:10px;color:var(--slate)">entry fee</div>
+          </div>
+          <button onclick="Toast.info('Event Live','This event is already live. You cannot enroll now.')" class="btn btn-secondary btn-sm" style="flex-shrink:0">Ongoing</button>
+        </div>
+      </div>
+
+      <!-- Event Row 2 - Upcoming, Not Enrolled -->
+      <div class="card card-hover" style="display:flex;gap:0;overflow:hidden" data-status="upcoming">
+        <div style="width:4px;background:var(--prize-gold);flex-shrink:0"></div>
+        <div style="padding:16px;flex:1;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div style="width:48px;height:48px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px">🔬</div>
+          <div style="flex:1;min-width:200px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+              <span class="badge badge-gold">ENROLLED ✓</span>
+              <span style="font-size:11px;color:var(--slate)">Science</span>
+            </div>
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--ink-navy);margin-bottom:4px">Science & Technology Mega Quiz</div>
+            <div style="display:flex;gap:12px;font-size:12px;color:var(--slate);flex-wrap:wrap">
+              <span>15 Questions</span>
+              <span>·</span>
+              <span>15s/Q</span>
+              <span>·</span>
+              <span data-countdown="2026-07-26T14:00:00">Starts soon</span>
+            </div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--prize-gold);margin-bottom:2px">৳6,500</div>
+            <div style="font-size:11px;color:var(--slate);margin-bottom:8px">prize pool</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--signal-indigo)">৳100</div>
+            <div style="font-size:10px;color:var(--slate)">paid</div>
+          </div>
+          <a href="quiz-play.html" class="btn btn-primary btn-sm" style="flex-shrink:0">Ready →</a>
+        </div>
+      </div>
+
+      <!-- Event Row 3 - Registering -->
+      <div class="card card-hover" style="display:flex;gap:0;overflow:hidden" data-status="registering">
+        <div style="width:4px;background:var(--signal-indigo);flex-shrink:0"></div>
+        <div style="padding:16px;flex:1;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div style="width:48px;height:48px;background:linear-gradient(135deg,#D1FAE5,#A7F3D0);border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px">🇧🇩</div>
+          <div style="flex:1;min-width:200px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+              <span class="badge badge-indigo">REGISTERING</span>
+              <span style="font-size:11px;color:var(--slate)">History</span>
+            </div>
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--ink-navy);margin-bottom:4px">Bangladesh History & Culture Quiz</div>
+            <div style="display:flex;gap:12px;font-size:12px;color:var(--slate);flex-wrap:wrap">
+              <span>12 Questions</span>
+              <span>·</span>
+              <span>20s/Q</span>
+              <span>·</span>
+              <span>23 enrolled</span>
+            </div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--prize-gold);margin-bottom:2px">৳3,000</div>
+            <div style="font-size:11px;color:var(--slate);margin-bottom:8px">est. pool</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--signal-indigo)">৳30</div>
+            <div style="font-size:10px;color:var(--slate)">entry fee</div>
+          </div>
+          <button onclick="enrollEvent(this,'Bangladesh History Quiz','30')" class="btn btn-primary btn-sm" style="flex-shrink:0" id="enroll-history">Enroll ৳30</button>
+        </div>
+      </div>
+
+      <!-- Event Row 4 -->
+      <div class="card card-hover" style="display:flex;gap:0;overflow:hidden" data-status="registering">
+        <div style="width:4px;background:var(--signal-indigo);flex-shrink:0"></div>
+        <div style="padding:16px;flex:1;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div style="width:48px;height:48px;background:linear-gradient(135deg,#E3F2FD,#BBDEFB);border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px">🌍</div>
+          <div style="flex:1;min-width:200px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+              <span class="badge badge-indigo">REGISTERING</span>
+              <span style="font-size:11px;color:var(--slate)">Geography</span>
+            </div>
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--ink-navy);margin-bottom:4px">World Geography Masters</div>
+            <div style="display:flex;gap:12px;font-size:12px;color:var(--slate);flex-wrap:wrap">
+              <span>15 Questions</span>
+              <span>·</span>
+              <span>18s/Q</span>
+              <span>·</span>
+              <span>29 enrolled</span>
+            </div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--prize-gold);margin-bottom:2px">৳4,800</div>
+            <div style="font-size:11px;color:var(--slate);margin-bottom:8px">est. pool</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--signal-indigo)">৳60</div>
+            <div style="font-size:10px;color:var(--slate)">entry fee</div>
+          </div>
+          <button onclick="enrollEvent(this,'World Geography Masters','60')" class="btn btn-primary btn-sm" style="flex-shrink:0">Enroll ৳60</button>
+        </div>
+      </div>
+
+      <!-- Event Row 5 - Completed -->
+      <div class="card" style="display:flex;gap:0;overflow:hidden;opacity:0.7" data-status="completed">
+        <div style="width:4px;background:var(--line);flex-shrink:0"></div>
+        <div style="padding:16px;flex:1;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div style="width:48px;height:48px;background:linear-gradient(135deg,#F3E5F5,#E1BEE7);border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px">📰</div>
+          <div style="flex:1;min-width:200px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+              <span class="badge badge-slate">COMPLETED</span>
+              <span style="font-size:11px;color:var(--slate)">Current Affairs</span>
+            </div>
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--ink-navy);margin-bottom:4px">Current Affairs — Weekly Quiz</div>
+            <div style="display:flex;gap:12px;font-size:12px;color:var(--slate);flex-wrap:wrap">
+              <span>10 Questions</span>
+              <span>·</span>
+              <span>90 enrolled</span>
+              <span>·</span>
+              <span>Your rank: <strong style="color:var(--ink-navy)">5th</strong></span>
+            </div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--slate);margin-bottom:2px">৳1,800</div>
+            <div style="font-size:11px;color:var(--slate);margin-bottom:8px">final pool</div>
+          </div>
+          <a href="quiz-result.html" class="btn btn-secondary btn-sm" style="flex-shrink:0">View Results</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bottom-tab-bar">
+    <a href="dashboard.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+    <a href="events.html" class="tab-item active"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>Events</a>
+    <a href="wallet.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>Wallet</a>
+    <a href="referrals.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>Referrals</a>
+    <a href="profile.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Profile</a>
+  </nav>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script>
+  function filterEvents(btn, status) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#events-list > .card').forEach(card => {
+      const s = card.dataset.status;
+      card.style.display = (status === 'all' || s === status) ? 'flex' : 'none';
+    });
+  }
+
+  function enrollEvent(btn, name, fee) {
+    btn.textContent = 'Enrolling...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Enrolled ✓';
+      btn.className = 'btn btn-success btn-sm';
+      Toast.success('Enrolled!', `You've joined ${name}. ৳${fee} deducted from wallet.`);
+    }, 1200);
+  }
+</script>
+</body>
+</html>

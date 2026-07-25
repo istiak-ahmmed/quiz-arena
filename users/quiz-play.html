@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz — QuizArena</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+  <style>
+    /* Tab-switch warning overlay */
+    .tab-warning {
+      position:fixed;inset:0;background:rgba(240,72,62,0.96);z-index:99999;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      color:#fff;text-align:center;padding:40px;
+    }
+    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+    .shake{animation:shake 0.4s ease}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body style="background:var(--paper);overflow:hidden">
+
+<!-- ===== QUIZ RUNNER (Full Screen) ===== -->
+<div id="quiz-runner" class="quiz-runner" x-data="quizState()" x-init="init()">
+
+  <!-- Progress Bar -->
+  <div class="quiz-progress-bar">
+    <div id="quiz-progress-fill" class="quiz-progress-fill" :style="{width: ((current+1)/questions.length*100)+'%'}"></div>
+  </div>
+
+  <!-- Quiz Header -->
+  <div class="quiz-header">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="events.html" onclick="return confirm('Quit this quiz? Your current progress will be lost.')" style="width:32px;height:32px;background:var(--paper);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--slate);text-decoration:none;transition:background 0.15s" onmouseover="this.style.background='var(--line)'" onmouseout="this.style.background='var(--paper)'">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </a>
+      <div>
+        <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--ink-navy)">Science & Technology Mega Quiz</div>
+        <div style="font-size:11px;color:var(--slate)">Question <span x-text="current+1"></span> of <span x-text="questions.length"></span></div>
+      </div>
+    </div>
+
+    <!-- Timer Ring -->
+    <div class="ring-container ring-sm" style="flex-shrink:0">
+      <svg id="ring-svg-quiz" class="ring-svg" width="56" height="56" viewBox="0 0 56 56">
+        <circle class="ring-track" cx="28" cy="28" r="23" stroke-width="5"/>
+        <circle id="ring-fill-quiz" class="ring-fill" cx="28" cy="28" r="23" stroke-width="5"/>
+      </svg>
+      <div class="ring-label" style="font-size:15px" id="ring-label-quiz" x-text="timeLeft"></div>
+    </div>
+
+    <!-- Score & Switches -->
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="text-align:center">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--ink-navy)" x-text="score"></div>
+        <div style="font-size:10px;color:var(--slate)">correct</div>
+      </div>
+      <div style="text-align:center" :class="tabSwitches>0?'text-coral':''">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700" :style="tabSwitches>0?'color:var(--alert-coral)':'color:var(--ink-navy)'" x-text="tabSwitches+'/2'"></div>
+        <div style="font-size:10px;color:var(--slate)">tab switches</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Question & Options -->
+  <div class="quiz-question-wrap">
+    <!-- Question Number pill -->
+    <div style="text-align:center;margin-bottom:4px">
+      <span style="display:inline-block;padding:4px 14px;background:var(--indigo-50);border-radius:20px;font-size:11px;font-weight:700;color:var(--signal-indigo);text-transform:uppercase;letter-spacing:0.05em">Question <span x-text="current+1"></span></span>
+    </div>
+
+    <!-- Question text -->
+    <div class="quiz-question-text" x-text="questions[current].text"></div>
+
+    <!-- Options -->
+    <div class="quiz-options">
+      <template x-for="(option, idx) in questions[current].options" :key="idx">
+        <button
+          class="quiz-option"
+          :id="'option-'+['A','B','C','D'][idx]"
+          :class="{
+            'answered': answered !== null,
+            'selected': answered === idx,
+          }"
+          :style="answered !== null && idx !== answered ? 'opacity:0.5' : ''"
+          @click="selectOption(idx)"
+          :disabled="answered !== null">
+          <span class="option-key" x-text="['A','B','C','D'][idx]"></span>
+          <span x-text="option"></span>
+        </button>
+      </template>
+    </div>
+
+    <!-- Answered confirmation -->
+    <div x-show="answered !== null" style="text-align:center;padding:10px;border-radius:10px;background:#D1FAE5;color:var(--correct-green);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      Answer recorded — moving to next question...
+    </div>
+  </div>
+</div>
+
+<!-- ===== RESULTS SCREEN ===== -->
+<div id="quiz-results" style="display:none;position:fixed;inset:0;background:var(--paper);z-index:9999;flex-direction:column;align-items:center;justify-content:center;padding:20px">
+  <div style="max-width:420px;width:100%;text-align:center">
+    <!-- Trophy animation -->
+    <div style="font-size:64px;margin-bottom:16px;animation:float 3s ease-in-out infinite">🏆</div>
+    <h1 style="font-family:'Sora',sans-serif;font-size:24px;font-weight:800;color:var(--ink-navy);margin-bottom:8px">Quiz Complete!</h1>
+    <p style="font-size:14px;color:var(--slate);margin-bottom:28px">Great effort! Final results will be published once the event closes at 10 PM.</p>
+
+    <!-- Score display -->
+    <div style="background:var(--surface-white);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:20px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;text-align:center">
+        <div>
+          <div id="result-score" style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--signal-indigo)">8</div>
+          <div style="font-size:11px;color:var(--slate)">/ <span id="result-total">10</span> correct</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--ink-navy)">96s</div>
+          <div style="font-size:11px;color:var(--slate)">total time</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--correct-green)">80%</div>
+          <div style="font-size:11px;color:var(--slate)">accuracy</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#FEF3C7;border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:14px;margin-bottom:24px;font-size:13px;color:#92400E">
+      <strong>Results published in:</strong> Event closes at 10:00 PM tonight. Rankings and prizes will be auto-calculated.
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <a href="quiz-result.html" class="btn btn-primary" style="justify-content:center;padding:13px">View Event Leaderboard</a>
+      <a href="dashboard.html" class="btn btn-secondary" style="justify-content:center;padding:13px">Back to Dashboard</a>
+    </div>
+  </div>
+</div>
+
+<!-- Tab-switch warning overlay -->
+<div id="tab-warning" class="tab-warning" style="display:none">
+  <svg width="48" height="48" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24" style="margin-bottom:16px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+  <h2 id="tab-warning-title" style="font-family:'Sora',sans-serif;font-size:24px;font-weight:800;margin-bottom:10px">Tab Switch Detected!</h2>
+  <p id="tab-warning-msg" style="font-size:15px;opacity:0.85;max-width:360px;line-height:1.6;margin-bottom:24px">You've switched tabs. This has been logged. You have <strong id="tab-remaining">1</strong> switch remaining before auto-submit.</p>
+  <button onclick="document.getElementById('tab-warning').style.display='none'" style="padding:12px 28px;background:#fff;color:var(--alert-coral);border:none;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer">Resume Quiz</button>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script>
+  function quizState() {
+    return {
+      questions: [
+        { text: 'What does CPU stand for?', options: ['Central Processing Unit', 'Computer Personal Unit', 'Central Power Unit', 'Computer Processing Utility'] },
+        { text: 'Which programming language runs in web browsers natively?', options: ['Python', 'Java', 'JavaScript', 'Ruby'] },
+        { text: 'What is the speed of light in a vacuum?', options: ['299,792 km/s', '150,000 km/s', '1,080,000 km/h', '340 m/s'] },
+        { text: 'Who invented the World Wide Web?', options: ['Bill Gates', 'Tim Berners-Lee', 'Linus Torvalds', 'Alan Turing'] },
+        { text: 'What does HTML stand for?', options: ['HyperText Markup Language', 'High Transfer Markup Language', 'HyperTech Macro Library', 'Hyper Transfer Main Language'] },
+        { text: 'What is 2 to the power of 10?', options: ['512', '1024', '2048', '256'] },
+        { text: 'Which company developed the Android operating system?', options: ['Apple', 'Microsoft', 'Google', 'Samsung'] },
+        { text: 'What protocol transfers web pages over the internet?', options: ['FTP', 'SMTP', 'HTTP', 'SSH'] },
+        { text: 'What is the binary equivalent of decimal 10?', options: ['1010', '1001', '1100', '0110'] },
+        { text: 'Which of these is NOT a programming language?', options: ['Swift', 'Kotlin', 'HTML', 'Rust'] },
+      ],
+      current: 0,
+      answered: null,
+      score: 0,
+      timeLeft: 20,
+      tabSwitches: 0,
+      maxTabSwitches: 2,
+      timer: null,
+      ring: null,
+
+      init() {
+        this.startTimer();
+        this.initTabWatch();
+      },
+
+      startTimer() {
+        if (this.timer) clearInterval(this.timer);
+        this.timeLeft = 20;
+        this.updateRing();
+
+        this.timer = setInterval(() => {
+          this.timeLeft--;
+          this.updateRing();
+
+          if (this.timeLeft <= 0) {
+            clearInterval(this.timer);
+            if (this.answered === null) {
+              setTimeout(() => this.nextQuestion(), 400);
+            }
+          }
+        }, 1000);
+      },
+
+      updateRing() {
+        const fill = document.getElementById('ring-fill-quiz');
+        if (!fill) return;
+        const r = 23;
+        const circ = 2 * Math.PI * r;
+        fill.style.strokeDasharray = circ;
+        const progress = this.timeLeft / 20;
+        fill.style.strokeDashoffset = circ * (1 - progress);
+
+        fill.classList.remove('gold', 'coral');
+        if (this.timeLeft <= 5) fill.classList.add('coral');
+        else if (this.timeLeft <= 8) fill.classList.add('gold');
+      },
+
+      selectOption(idx) {
+        if (this.answered !== null) return;
+        this.answered = idx;
+        // Treat all as "answered" (no correct/incorrect shown mid-quiz)
+        this.score++; // in a real app, server evaluates
+        clearInterval(this.timer);
+        setTimeout(() => this.nextQuestion(), 1200);
+      },
+
+      nextQuestion() {
+        this.current++;
+        this.answered = null;
+        if (this.current >= this.questions.length) {
+          this.showResults();
+          return;
+        }
+        this.startTimer();
+      },
+
+      showResults() {
+        document.getElementById('quiz-runner').style.display = 'none';
+        const results = document.getElementById('quiz-results');
+        results.style.display = 'flex';
+        document.getElementById('result-score').textContent = this.score;
+        document.getElementById('result-total').textContent = this.questions.length;
+      },
+
+      initTabWatch() {
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden && this.current < this.questions.length && !document.getElementById('quiz-results').style.display.includes('flex')) {
+            this.tabSwitches++;
+            const remaining = this.maxTabSwitches - this.tabSwitches;
+            const warningEl = document.getElementById('tab-warning');
+            const msgEl = document.getElementById('tab-warning-msg');
+            const remainEl = document.getElementById('tab-remaining');
+
+            if (remainEl) remainEl.textContent = remaining;
+            if (warningEl) warningEl.style.display = 'flex';
+
+            if (this.tabSwitches >= this.maxTabSwitches) {
+              document.getElementById('tab-warning-title').textContent = 'Session Auto-Submitted!';
+              if (msgEl) msgEl.innerHTML = 'You exceeded the maximum tab switches. Your quiz has been auto-submitted.';
+              setTimeout(() => this.showResults(), 3000);
+            }
+          }
+        });
+      }
+    };
+  }
+</script>
+</body>
+</html>

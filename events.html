@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Quiz Events — QuizArena</title>
+  <meta name="description" content="Browse all live and upcoming quiz events. Find your category, check the prize pool, and enroll to compete.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE',100:'#DDE0FD'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+</head>
+<body style="background:var(--paper)">
+
+<!-- Nav (shared) -->
+<nav class="public-nav" id="main-nav">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px">
+      <a href="index.html" class="nav-logo">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="12" stroke="#3E4BF0" stroke-width="2"/><path d="M7 13l4 4 8-8" stroke="#3E4BF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Quiz<span>Arena</span>
+      </a>
+      <ul class="nav-links hidden md:flex">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:8px">
+        <a href="login.html" class="btn btn-ghost hidden md:inline-flex">Log In</a>
+        <a href="register.html" class="btn btn-primary">Join Free</a>
+        <!-- Mobile menu button -->
+        <button class="btn btn-ghost btn-icon md:hidden" style="padding:8px" onclick="const m=document.getElementById('mobile-menu'); m.style.display = m.style.display === 'none' ? 'block' : 'none'">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" style="display:none" class="pb-4 border-t border-line pt-4">
+      <ul style="display:flex;flex-direction:column;gap:4px">
+        <li><a href="index.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Home</a></li>
+        <li><a href="events.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Events</a></li>
+        <li><a href="how-it-works.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">How It Works</a></li>
+        <li><a href="login.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Log In</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<div style="background:var(--ink-navy);padding:40px 0 48px">
+  <div class="container">
+    <div class="breadcrumb" style="margin-bottom:16px">
+      <a href="index.html" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px">Home</a>
+      <span style="color:rgba(255,255,255,0.2)">/</span>
+      <span style="color:rgba(255,255,255,0.7);font-size:13px">Events</span>
+    </div>
+    <h1 style="font-family:'Sora',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:10px">Browse Quiz Events</h1>
+    <p style="font-size:14px;color:rgba(255,255,255,0.6);max-width:500px">Find your category. Check the prize pool. Register before the deadline.</p>
+  </div>
+</div>
+
+<!-- Filters + Grid -->
+<div class="container" style="padding-top:32px;padding-bottom:60px">
+  <div x-data="{
+    filter: 'all',
+    search: '',
+    events: [
+      {id:1, title:'General Knowledge Championship — July 2026', cat:'General Knowledge', status:'live', fee:50, pool:'৳4,200', questions:10, time:20, enrolled:84, deadline:'2026-07-25T20:00:00', color:'#EEF0FE'},
+      {id:2, title:'Science & Technology Mega Quiz', cat:'Science', status:'upcoming', fee:100, pool:'৳6,500', questions:15, time:15, enrolled:47, deadline:'2026-07-26T14:00:00', color:'#FEF3C7'},
+      {id:3, title:'Bangladesh History & Culture Quiz', cat:'History', status:'registering', fee:30, pool:'৳3,000', questions:12, time:20, enrolled:23, deadline:'2026-07-27T10:00:00', color:'#D1FAE5'},
+      {id:4, title:'Mathematics Challenge — Advanced', cat:'Mathematics', status:'upcoming', fee:75, pool:'৳5,000', questions:10, time:30, enrolled:61, deadline:'2026-07-28T16:00:00', color:'#FEE2E2'},
+      {id:5, title:'English Language & Literature', cat:'English', status:'registering', fee:40, pool:'৳2,800', questions:15, time:20, enrolled:38, deadline:'2026-07-29T12:00:00', color:'#E8F5E9'},
+      {id:6, title:'Current Affairs — Weekly Quiz', cat:'Current Affairs', status:'completed', fee:20, pool:'৳1,800', questions:10, time:15, enrolled:90, deadline:'2026-07-24T18:00:00', color:'#F3E5F5'},
+      {id:7, title:'World Geography Masters', cat:'Geography', status:'registering', fee:60, pool:'৳4,800', questions:15, time:18, enrolled:29, deadline:'2026-07-30T14:00:00', color:'#E3F2FD'},
+      {id:8, title:'ICT & Programming Fundamentals', cat:'Technology', status:'upcoming', fee:80, pool:'৳5,600', questions:12, time:25, enrolled:55, deadline:'2026-07-31T10:00:00', color:'#FFF3E0'},
+    ],
+    get filtered(){ 
+      return this.events.filter(e => {
+        const matchFilter = this.filter==='all' || e.status===this.filter;
+        const matchSearch = !this.search || e.title.toLowerCase().includes(this.search.toLowerCase()) || e.cat.toLowerCase().includes(this.search.toLowerCase());
+        return matchFilter && matchSearch;
+      });
+    }
+  }">
+
+    <!-- Filter Bar -->
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:28px">
+      <!-- Search -->
+      <div style="flex:1;min-width:200px;max-width:320px;position:relative">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--slate)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" x-model="search" placeholder="Search events or categories..." style="width:100%;padding:9px 12px 9px 36px;border:1.5px solid var(--line);border-radius:10px;font-size:13px;background:var(--surface-white);color:var(--ink-navy);outline:none;transition:border-color 0.15s" onfocus="this.style.borderColor='var(--signal-indigo)'" onblur="this.style.borderColor='var(--line)'" id="events-search">
+      </div>
+
+      <!-- Status filters -->
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button @click="filter='all'" :class="filter==='all'?'btn-primary':'btn-secondary'" class="btn btn-sm" id="filter-all">All Events</button>
+        <button @click="filter='live'" :class="filter==='live'?'btn-primary':'btn-secondary'" class="btn btn-sm" id="filter-live">
+          <span style="width:7px;height:7px;background:var(--correct-green);border-radius:50%;display:inline-block"></span>
+          Live
+        </button>
+        <button @click="filter='upcoming'" :class="filter==='upcoming'?'btn-primary':'btn-secondary'" class="btn btn-sm" id="filter-upcoming">Upcoming</button>
+        <button @click="filter='registering'" :class="filter==='registering'?'btn-primary':'btn-secondary'" class="btn btn-sm" id="filter-registering">Registering</button>
+        <button @click="filter='completed'" :class="filter==='completed'?'btn-primary':'btn-secondary'" class="btn btn-sm" id="filter-completed">Completed</button>
+      </div>
+
+      <!-- Result count -->
+      <div style="margin-left:auto;font-size:13px;color:var(--slate)">
+        <span x-text="filtered.length"></span> events
+      </div>
+    </div>
+
+    <!-- Events Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px">
+      <template x-for="ev in filtered" :key="ev.id">
+        <a :href="'event-detail.html'" class="event-card" style="text-decoration:none;display:block">
+          <!-- Thumbnail -->
+          <div class="card-thumb" :style="{background:'linear-gradient(135deg,'+ev.color+','+(ev.color)+'CC'}">
+            <div class="card-thumb-overlay"></div>
+            <!-- Status Badge -->
+            <div class="status-badge">
+              <span class="badge" :class="{
+                'badge-live': ev.status==='live',
+                'badge-gold': ev.status==='upcoming',
+                'badge-indigo': ev.status==='registering',
+                'badge-slate': ev.status==='completed'
+              }" x-text="ev.status.toUpperCase()"></span>
+            </div>
+            <!-- Prize Badge -->
+            <div class="prize-badge" x-text="ev.pool+' pool'"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="card-content">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--signal-indigo);margin-bottom:6px" x-text="ev.cat"></div>
+            <div class="event-title" x-text="ev.title"></div>
+            <div class="event-meta" style="margin-top:8px">
+              <span class="event-fee" x-text="'৳'+ev.fee+' entry'"></span>
+              <span>·</span>
+              <span x-text="ev.questions+' Q\\'s'"></span>
+              <span>·</span>
+              <span x-text="ev.time+'s/Q'"></span>
+            </div>
+            <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between">
+              <div style="font-size:12px;color:var(--slate)">
+                <span style="font-weight:600;color:var(--ink-navy)" x-text="ev.enrolled"></span> enrolled
+              </div>
+              <div x-show="ev.status==='live'" style="font-size:12px;color:var(--alert-coral);font-weight:700;font-family:'JetBrains Mono',monospace">LIVE NOW</div>
+              <div x-show="ev.status==='completed'" style="font-size:12px;color:var(--slate);font-weight:600">Completed</div>
+              <div x-show="ev.status!=='live'&&ev.status!=='completed'" style="font-size:12px;color:var(--slate)">
+                Starts: <span style="font-weight:600;color:var(--ink-navy)" :data-countdown="ev.deadline">Soon</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </template>
+
+      <!-- Empty State -->
+      <div x-show="filtered.length===0" style="grid-column:1/-1">
+        <div class="empty-state card">
+          <div class="empty-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <div class="empty-title">No events found</div>
+          <p class="empty-desc">Try adjusting your search or filter to find events</p>
+          <button @click="filter='all';search=''" class="btn btn-secondary" style="margin-top:16px">Clear Filters</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer style="background:var(--ink-navy);color:#fff;padding:56px 0 24px">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px" class="md:grid-cols-4 grid-cols-2">
+      <!-- Brand -->
+      <div>
+        <a href="index.html" style="font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#3E4BF0" stroke-width="2"/><path d="M7 12l3 3 7-7" stroke="#3E4BF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Quiz<span style="color:var(--signal-indigo)">Arena</span>
+        </a>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:240px">Bangladesh's competitive quiz platform — real prizes, fair ranking, instant payouts.</p>
+        <div style="display:flex;gap:10px;margin-top:20px">
+          <a href="#" style="width:34px;height:34px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all 0.2s;text-decoration:none" onmouseover="this.style.background='rgba(62,75,240,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" style="width:34px;height:34px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all 0.2s;text-decoration:none" onmouseover="this.style.background='rgba(62,75,240,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Platform -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Platform</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li><a href="events.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Browse Events</a></li>
+          <li><a href="how-it-works.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">How It Works</a></li>
+          <li><a href="register.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Register</a></li>
+          <li><a href="login.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Log In</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Legal</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li><a href="privacy-policy.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Privacy Policy</a></li>
+          <li><a href="terms.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Terms of Service</a></li>
+          <li><a href="about.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">About Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Contact</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:rgba(255,255,255,0.6)">support@quizarena.com.bd</li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6)">Mon–Sat, 9am–9pm</li>
+          <li><a href="#" style="font-size:13px;color:var(--signal-indigo);text-decoration:none">Join Discord Community</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2026 QuizArena. All rights reserved. | Platform for entertainment & fair competition.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">Built with ❤️ in Bangladesh</p>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

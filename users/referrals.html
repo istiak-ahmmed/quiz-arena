@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referrals — QuizArena</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+</head>
+<body style="background:var(--paper)">
+<div class="user-layout">
+  <div class="user-topbar">
+    <a href="../index.html" class="user-topbar-logo">Quiz<span>Arena</span></a>
+    <div class="avatar-placeholder avatar-sm" style="font-size:12px">RI</div>
+  </div>
+  <div class="user-main">
+
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Referral Program</h1>
+        <p class="page-subtitle">Invite friends, earn coins when they complete their first paid quiz</p>
+      </div>
+    </div>
+
+    <!-- Referral Code Card -->
+    <div style="background:linear-gradient(135deg,#101B3D,#1A2A5C);border-radius:16px;padding:24px;margin-bottom:20px;color:#fff;position:relative;overflow:hidden">
+      <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:rgba(245,166,35,0.15);border-radius:50%"></div>
+      <div style="position:absolute;bottom:-30px;right:60px;width:60px;height:60px;background:rgba(62,75,240,0.2);border-radius:50%"></div>
+
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.5);margin-bottom:8px">Your Referral Code</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--prize-gold);letter-spacing:0.1em;margin-bottom:16px">RAFIQ42</div>
+
+      <div style="display:flex;gap:8px;align-items:center;background:rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;margin-bottom:16px;position:relative;z-index:1">
+        <span style="flex:1;font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,0.7)">quizarena.com/ref/RAFIQ42</span>
+        <button onclick="navigator.clipboard.writeText('quizarena.com/ref/RAFIQ42').then(()=>Toast.success('Copied!','Referral link copied to clipboard'))" class="btn btn-sm" style="background:var(--prize-gold);color:var(--ink-navy);flex-shrink:0;font-size:12px" id="copy-referral-btn">Copy Link</button>
+      </div>
+
+      <div style="display:flex;gap:8px;position:relative;z-index:1;flex-wrap:wrap">
+        <button onclick="Toast.info('Share','Sharing via WhatsApp...')" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);font-size:12px" id="share-whatsapp">📱 WhatsApp</button>
+        <button onclick="Toast.info('Share','Sharing via Facebook...')" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);font-size:12px" id="share-facebook">👥 Facebook</button>
+        <button onclick="Toast.info('Share','Sharing via SMS...')" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);font-size:12px" id="share-sms">💬 SMS</button>
+      </div>
+    </div>
+
+    <!-- Reward Stats -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">
+      <div class="stat-card">
+        <div class="stat-value" style="font-size:22px;color:var(--ink-navy)">8</div>
+        <div class="stat-label">Total Referred</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value green" style="font-size:22px">5</div>
+        <div class="stat-label">Qualified</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value gold" style="font-size:22px">৳100</div>
+        <div class="stat-label">Total Earned</div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="card" style="margin-bottom:20px;padding:20px">
+      <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--ink-navy);margin-bottom:16px">How Referrals Work</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="width:28px;height:28px;background:var(--indigo-50);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--signal-indigo);flex-shrink:0">1</div>
+          <div style="font-size:13px;color:var(--slate)">Share your referral link with friends. They register using your code.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="width:28px;height:28px;background:var(--indigo-50);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--signal-indigo);flex-shrink:0">2</div>
+          <div style="font-size:13px;color:var(--slate)">Your friend completes their <strong>first paid quiz event</strong> — this qualifies the referral.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="width:28px;height:28px;background:#FEF3C7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#92400E;flex-shrink:0">৳</div>
+          <div style="font-size:13px;color:var(--slate)">You earn <strong style="color:var(--prize-gold)">৳20</strong> credited to your wallet. Your friend gets <strong style="color:var(--correct-green)">৳10</strong> bonus too.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Referred Friends List -->
+    <div class="card">
+      <div class="card-header">
+        <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px">Your Referrals</span>
+        <span style="font-size:12px;color:var(--slate)">8 friends</span>
+      </div>
+      <div class="card-body" style="padding:0">
+        <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="avatar-placeholder avatar-sm" style="font-size:11px;background:#D1FAE5;color:#065F46">AS</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink-navy)">Ahmed Sunny</div><div style="font-size:11px;color:var(--slate)">Joined Jul 18, 2026</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-green">Qualified</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--prize-gold)">+৳20</span>
+          </div>
+        </div>
+        <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="avatar-placeholder avatar-sm" style="font-size:11px;background:#FEF3C7;color:#92400E">FB</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink-navy)">Fatema Begum</div><div style="font-size:11px;color:var(--slate)">Joined Jul 15, 2026</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-green">Qualified</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--prize-gold)">+৳20</span>
+          </div>
+        </div>
+        <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="avatar-placeholder avatar-sm" style="font-size:11px;background:var(--indigo-50);color:var(--signal-indigo)">MK</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink-navy)">Minhaz Khan</div><div style="font-size:11px;color:var(--slate)">Joined Jul 22, 2026</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-slate">Pending</span>
+            <span style="font-size:12px;color:var(--slate)">Not played yet</span>
+          </div>
+        </div>
+        <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="avatar-placeholder avatar-sm" style="font-size:11px;background:#FEE2E2;color:#991B1B">NJ</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink-navy)">Nasrin Jahan</div><div style="font-size:11px;color:var(--slate)">Joined Jul 24, 2026</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-slate">Pending</span>
+            <span style="font-size:12px;color:var(--slate)">Not played yet</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bottom-tab-bar">
+    <a href="dashboard.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+    <a href="events.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>Events</a>
+    <a href="wallet.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>Wallet</a>
+    <a href="referrals.html" class="tab-item active"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>Referrals</a>
+    <a href="profile.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Profile</a>
+  </nav>
+</div>
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

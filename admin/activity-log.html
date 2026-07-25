@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity Log — QuizArena Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body style="background:var(--paper)">
+<div id="sidebar-overlay" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;backdrop-filter:blur(2px)"></div>
+<div class="admin-layout">
+  <div id="admin-sidebar-root"></div>
+  <div class="admin-content">
+    <div id="admin-topbar-root"></div>
+    <main class="admin-main">
+      <div class="page-header">
+        <div><h2 class="page-title">Activity Log</h2><p class="page-subtitle">Full immutable audit log of all admin actions</p></div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="date" class="form-input" style="height:36px;font-size:13px;width:160px">
+          <select class="form-select" style="width:150px;height:36px;font-size:13px">
+            <option>All Actions</option>
+            <option>Deposit Approved</option>
+            <option>Deposit Rejected</option>
+            <option>Withdrawal Processed</option>
+            <option>Event Created</option>
+            <option>Event Closed</option>
+            <option>User Banned</option>
+          </select>
+          <button onclick="Toast.info('Export','Exporting log as CSV...')" class="btn btn-secondary" style="height:36px;font-size:13px">Export CSV</button>
+        </div>
+      </div>
+
+      <!-- Log Timeline -->
+      <div class="card">
+        <div class="card-header">
+          <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px">Admin Activity</span>
+          <span style="font-size:12px;color:var(--slate)">Jul 25, 2026</span>
+        </div>
+        <div style="padding:20px;position:relative">
+          <div style="position:absolute;left:35px;top:0;bottom:0;width:2px;background:var(--line)"></div>
+
+          <!-- Log entries -->
+          <div style="display:flex;flex-direction:column;gap:0">
+
+            <div class="log-entry">
+              <div class="log-icon log-approved"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              <div class="log-content">
+                <div class="log-title">Deposit Approved — Rafiqul Islam — <span class="mono">৳500 via bKash (BK8472XYZ)</span></div>
+                <div class="log-meta">Super Admin · Jul 25, 2026 09:12:04 AM · IP: 103.XX.XX.XX</div>
+              </div>
+            </div>
+
+            <div class="log-entry">
+              <div class="log-icon log-rejected"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></div>
+              <div class="log-content">
+                <div class="log-title">Deposit Rejected — Minhaz Khan — <span class="mono">৳200 (Invalid TxID)</span></div>
+                <div class="log-meta">Super Admin · Jul 25, 2026 08:54:18 AM · IP: 103.XX.XX.XX</div>
+              </div>
+            </div>
+
+            <div class="log-entry">
+              <div class="log-icon log-event"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+              <div class="log-content">
+                <div class="log-title">Event Published — Science & Technology Mega Quiz (starts Jul 26)</div>
+                <div class="log-meta">Super Admin · Jul 24, 2026 06:00:00 PM · IP: 103.XX.XX.XX</div>
+              </div>
+            </div>
+
+            <div class="log-entry">
+              <div class="log-icon log-withdrawal"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></div>
+              <div class="log-content">
+                <div class="log-title">Withdrawal Processed — Saima Akhter — <span class="mono">৳500 to bKash 01711XXXXXX</span></div>
+                <div class="log-meta">Super Admin · Jul 24, 2026 03:22:41 PM · IP: 103.XX.XX.XX</div>
+              </div>
+            </div>
+
+            <div class="log-entry">
+              <div class="log-icon log-event"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+              <div class="log-content">
+                <div class="log-title">Event Closed & Results Published — Current Affairs Weekly — 90 participants, prizes distributed</div>
+                <div class="log-meta">System Auto · Jul 24, 2026 06:00:00 PM</div>
+              </div>
+            </div>
+
+            <div class="log-entry">
+              <div class="log-icon log-approved"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              <div class="log-content">
+                <div class="log-title">Deposit Approved — Tariq Hassan — <span class="mono">৳1,000 via bKash (BK1022AB)</span></div>
+                <div class="log-meta">Super Admin · Jul 24, 2026 11:05:22 AM · IP: 103.XX.XX.XX</div>
+              </div>
+            </div>
+
+            <div class="log-entry">
+              <div class="log-icon log-user"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg></div>
+              <div class="log-content">
+                <div class="log-title">User Banned — Sohel Uddin — Reason: Multiple tab switching violations across 3 events</div>
+                <div class="log-meta">Super Admin · Jun 12, 2026 02:44:10 PM · IP: 103.XX.XX.XX</div>
+              </div>
+            </div>
+
+            <div class="log-entry" style="border-bottom:none">
+              <div class="log-icon log-event"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg></div>
+              <div class="log-content">
+                <div class="log-title">Event Created — General Knowledge Championship — July 2026 (fee ৳50, 10Q)</div>
+                <div class="log-meta">Super Admin · Jul 23, 2026 09:00:00 AM · IP: 103.XX.XX.XX</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="card-footer" style="display:flex;justify-content:center">
+          <button onclick="Toast.info('Load More','Loading older log entries...')" class="btn btn-secondary btn-sm">Load Earlier Entries</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-layout.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAdminSidebar('activity-log');
+    renderAdminTopbar('Activity Log', 'Immutable audit log of all admin actions');
+  });
+</script>
+</body>
+</html>

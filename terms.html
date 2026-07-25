@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — QuizArena</title>
+  <meta name="description" content="QuizArena terms of service — rules for participation, prize eligibility, and platform usage.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0'},paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body style="background:var(--paper)">
+<nav class="public-nav" id="main-nav">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px">
+      <a href="index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="13" stroke="#3E4BF0" stroke-width="2"/>
+          <path d="M8 14l4 4 8-8" stroke="#3E4BF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Quiz<span>Arena</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <ul class="nav-links hidden md:flex">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+
+      <!-- Auth Buttons -->
+      <div style="display:flex;align-items:center;gap:8px">
+        <a href="login.html" class="btn btn-ghost hidden md:inline-flex">Log In</a>
+        <a href="register.html" class="btn btn-primary">Join Free</a>
+        <!-- Mobile menu button -->
+        <button class="btn btn-ghost btn-icon md:hidden" style="padding:8px" onclick="const m=document.getElementById('mobile-menu'); m.style.display = m.style.display === 'none' ? 'block' : 'none'">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" style="display:none" class="pb-4 border-t border-line pt-4">
+      <ul style="display:flex;flex-direction:column;gap:4px">
+        <li><a href="index.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Home</a></li>
+        <li><a href="events.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Events</a></li>
+        <li><a href="how-it-works.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">How It Works</a></li>
+        <li><a href="login.html" style="display:block;padding:9px 14px;border-radius:8px;color:var(--slate);font-size:14px;font-weight:500;text-decoration:none">Log In</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div style="background:var(--ink-navy);padding:40px 0 48px">
+  <div class="container"><div class="breadcrumb" style="margin-bottom:12px"><a href="index.html" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px">Home</a><span style="color:rgba(255,255,255,0.2)">/</span><span style="color:rgba(255,255,255,0.7);font-size:13px">Terms of Service</span></div>
+  <h1 style="font-family:'Sora',sans-serif;font-size:2rem;font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:6px">Terms of Service</h1>
+  <p style="font-size:13px;color:rgba(255,255,255,0.5)">Last updated: July 25, 2026</p></div>
+</div>
+
+<div class="container" style="padding:40px 20px 60px;max-width:760px">
+  <div class="card" style="padding:32px;line-height:1.8">
+    <div style="font-size:14px;color:var(--slate);margin-bottom:24px">By creating an account or participating in any QuizArena event, you agree to these Terms. Please read them carefully.</div>
+
+    <h2 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin:24px 0 10px">1. Eligibility</h2>
+    <ul style="font-size:14px;color:var(--slate);margin-left:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px">
+      <li>You must be at least 18 years old, or 16+ with verifiable parental consent.</li>
+      <li>One account per person. Multiple accounts are prohibited and result in permanent ban.</li>
+      <li>You must reside in Bangladesh. MFS payments are Bangladesh-only.</li>
+    </ul>
+
+    <h2 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin:24px 0 10px">2. Wallet & Payments</h2>
+    <ul style="font-size:14px;color:var(--slate);margin-left:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px">
+      <li>Wallet balance is only usable on QuizArena. It is not transferable to other users.</li>
+      <li>Deposits are credited after manual admin verification. Fraudulent TxIDs result in account ban.</li>
+      <li>Withdrawals are processed to the MFS number registered on your profile within 24 hours on business days.</li>
+      <li>QuizArena is not responsible for MFS transfer failures caused by incorrect numbers provided by the user.</li>
+    </ul>
+
+    <h2 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin:24px 0 10px">3. Event Participation & Anti-Cheat</h2>
+    <ul style="font-size:14px;color:var(--slate);margin-left:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px">
+      <li>Entry fees are deducted from your wallet upon enrollment. Non-refundable unless the event is cancelled by admin.</li>
+      <li>Events with fewer than the minimum number of participants are cancelled and entry fees fully refunded.</li>
+      <li><strong style="color:var(--ink-navy)">Tab switching is monitored.</strong> Exceeding the allowed limit (default: 2) results in auto-submit. Your submitted answers are scored as-is.</li>
+      <li>Using tools, scripts, or assistance to gain an unfair advantage constitutes cheating and results in permanent disqualification and ban.</li>
+      <li>Timing is 100% server-side. Clients cannot manipulate time spent per question.</li>
+      <li>Admin decisions on fraud and cheating are final.</li>
+    </ul>
+
+    <h2 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin:24px 0 10px">4. Prizes & Ranking</h2>
+    <ul style="font-size:14px;color:var(--slate);margin-left:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px">
+      <li>Prizes are calculated as a percentage of total entry fees collected after the event closes.</li>
+      <li>Tiebreaker: total time taken server-side. Faster time at equal score = higher rank.</li>
+      <li>Prize amounts are credited to your wallet automatically after event results are published. No manual claim needed.</li>
+      <li>Platform retains (100% − Prize Pool %) as operating revenue. This percentage is published on every event page.</li>
+    </ul>
+
+    <h2 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin:24px 0 10px">5. Referral Program</h2>
+    <ul style="font-size:14px;color:var(--slate);margin-left:20px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px">
+      <li>Referral bonuses are credited when the referred person completes their first paid quiz event.</li>
+      <li>Self-referrals (referring yourself via a second account) are prohibited and result in ban.</li>
+      <li>QuizArena reserves the right to modify or terminate the referral program at any time.</li>
+    </ul>
+
+    <h2 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin:24px 0 10px">6. Account Suspension & Termination</h2>
+    <p style="font-size:14px;color:var(--slate);margin-bottom:16px">QuizArena may suspend or terminate accounts without prior notice for: fraudulent deposits, cheating, multiple accounts, harassment, or any violation of these Terms. Wallet balance in banned accounts is forfeited if fraud is confirmed.</p>
+
+    <h2 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin:24px 0 10px">7. Limitation of Liability</h2>
+    <p style="font-size:14px;color:var(--slate);margin-bottom:16px">QuizArena is a skill-based competitive platform. Outcomes depend on knowledge and speed. We do not guarantee any particular financial result. Total liability is limited to the amount in your wallet balance at the time of any dispute.</p>
+
+    <h2 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink-navy);margin:24px 0 10px">8. Changes to Terms</h2>
+    <p style="font-size:14px;color:var(--slate)">We may update these Terms. Continued use of the platform after changes constitutes acceptance. Contact <a href="mailto:support@quizarena.com.bd" style="color:var(--signal-indigo)">support@quizarena.com.bd</a> for questions.</p>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer style="background:var(--ink-navy);color:#fff;padding:56px 0 24px">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px" class="md:grid-cols-4 grid-cols-2">
+      <!-- Brand -->
+      <div>
+        <a href="index.html" style="font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#3E4BF0" stroke-width="2"/><path d="M7 12l3 3 7-7" stroke="#3E4BF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Quiz<span style="color:var(--signal-indigo)">Arena</span>
+        </a>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:240px">Bangladesh's competitive quiz platform — real prizes, fair ranking, instant payouts.</p>
+        <div style="display:flex;gap:10px;margin-top:20px">
+          <a href="#" style="width:34px;height:34px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all 0.2s;text-decoration:none" onmouseover="this.style.background='rgba(62,75,240,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" style="width:34px;height:34px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all 0.2s;text-decoration:none" onmouseover="this.style.background='rgba(62,75,240,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Platform -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Platform</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li><a href="events.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Browse Events</a></li>
+          <li><a href="how-it-works.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">How It Works</a></li>
+          <li><a href="register.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Register</a></li>
+          <li><a href="login.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Log In</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Legal</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li><a href="privacy-policy.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Privacy Policy</a></li>
+          <li><a href="terms.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Terms of Service</a></li>
+          <li><a href="about.html" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">About Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:16px">Contact</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:rgba(255,255,255,0.6)">support@quizarena.com.bd</li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6)">Mon–Sat, 9am–9pm</li>
+          <li><a href="#" style="font-size:13px;color:var(--signal-indigo);text-decoration:none">Join Discord Community</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2026 QuizArena. All rights reserved. | Platform for entertainment & fair competition.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">Built with ❤️ in Bangladesh</p>
+    </div>
+  </div>
+</footer>
+<div id="toast-container" class="toast-container"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

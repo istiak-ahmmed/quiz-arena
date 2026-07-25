@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Results — QuizArena</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#101B3D',indigo:{DEFAULT:'#3E4BF0',50:'#EEF0FE'},green:'#17B26A',coral:'#F0483E',gold:'#F5A623',paper:'#F7F8FC',slate:'#5B6478',line:'#E4E7F0'}}}}</script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+</head>
+<body style="background:var(--paper)">
+<div class="user-layout">
+  <div class="user-topbar">
+    <a href="../index.html" class="user-topbar-logo">Quiz<span>Arena</span></a>
+    <div class="avatar-placeholder avatar-sm" style="font-size:12px">RI</div>
+  </div>
+  <div class="user-main" style="padding-bottom:90px">
+
+
+    <!-- Event Info Header -->
+    <div style="background:var(--ink-navy);border-radius:16px;padding:20px;margin-bottom:20px;color:#fff">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <span class="badge badge-slate" style="margin-bottom:8px">General Knowledge</span>
+          <h1 style="font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:4px">General Knowledge Championship — June 2026</h1>
+          <p style="font-size:12px;color:rgba(255,255,255,0.5)">Completed · Jun 30, 2026 · 90 participants</p>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:4px">Final Prize Pool</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;color:var(--prize-gold)">৳3,150</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Your Result Card -->
+    <div style="border:2px solid var(--prize-gold);border-radius:16px;padding:20px;margin-bottom:20px;background:linear-gradient(135deg,rgba(245,166,35,0.05) 0%,transparent 100%)">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--prize-gold);margin-bottom:12px">Your Performance</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center">
+        <div>
+          <div class="rank-badge rank-1" style="width:44px;height:44px;font-size:20px;margin:0 auto 6px">1</div>
+          <div style="font-size:11px;color:var(--slate)">Rank</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--ink-navy)">9/10</div>
+          <div style="font-size:11px;color:var(--slate)">Score</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--ink-navy)">87s</div>
+          <div style="font-size:11px;color:var(--slate)">Total Time</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--prize-gold)">৳875</div>
+          <div style="font-size:11px;color:var(--slate)">Prize Won</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="card">
+      <div class="card-header">
+        <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px">Full Leaderboard</span>
+        <span style="font-size:12px;color:var(--slate)">90 participants</span>
+      </div>
+      <div style="overflow:hidden">
+        <!-- Rank 1 Row (you) -->
+        <div class="leaderboard-row-1" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)">
+          <div class="rank-badge rank-1">1</div>
+          <div class="avatar-placeholder avatar-sm" style="font-size:11px;background:var(--indigo-50);color:var(--signal-indigo)">RI</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:700;color:var(--ink-navy)">Rafiqul Islam <span style="font-size:11px;font-weight:500;color:var(--signal-indigo)">(You)</span></div>
+            <div style="font-size:11px;color:var(--slate)">Score: 9/10</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--slate)">87s</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--prize-gold)">+৳875</div>
+          </div>
+        </div>
+        <!-- Rank 2 -->
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)">
+          <div class="rank-badge rank-2">2</div>
+          <div class="avatar-placeholder avatar-sm" style="font-size:11px;background:#FEF3C7;color:#92400E">SA</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600;color:var(--ink-navy)">Saima Akhter</div>
+            <div style="font-size:11px;color:var(--slate)">Score: 9/10</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--slate)">92s</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--ink-navy)">+৳525</div>
+          </div>
+        </div>
+        <!-- Rank 3 -->
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)">
+          <div class="rank-badge rank-3">3</div>
+          <div class="avatar-placeholder avatar-sm" style="font-size:11px;background:#D1FAE5;color:#065F46">TH</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600;color:var(--ink-navy)">Tariq Hassan</div>
+            <div style="font-size:11px;color:var(--slate)">Score: 9/10</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--slate)">108s</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--ink-navy)">+৳350</div>
+          </div>
+        </div>
+        <!-- Rank 4+ -->
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)">
+          <div class="rank-badge rank-n">4</div>
+          <div class="avatar-placeholder avatar-sm" style="font-size:11px">MN</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--slate)">Mahmud Noor</div><div style="font-size:11px;color:var(--slate)">Score: 8/10</div></div>
+          <div style="text-align:right;flex-shrink:0"><div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--slate)">103s</div><div style="font-size:12px;color:var(--slate)">No prize</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)">
+          <div class="rank-badge rank-n">5</div>
+          <div class="avatar-placeholder avatar-sm" style="font-size:11px;background:#FEE2E2;color:#991B1B">RB</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--slate)">Rina Begum</div><div style="font-size:11px;color:var(--slate)">Score: 8/10</div></div>
+          <div style="text-align:right;flex-shrink:0"><div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--slate)">117s</div><div style="font-size:12px;color:var(--slate)">No prize</div></div>
+        </div>
+        <div style="padding:14px 16px;text-align:center;font-size:12px;color:var(--slate);background:var(--paper)">
+          + 85 more participants — ranks 6 through 90
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;display:flex;gap:10px">
+      <a href="events.html" class="btn btn-secondary" style="flex:1;justify-content:center">Browse More Events</a>
+      <a href="dashboard.html" class="btn btn-primary" style="flex:1;justify-content:center">Dashboard</a>
+    </div>
+  </div>
+
+  <nav class="bottom-tab-bar">
+    <a href="dashboard.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+    <a href="events.html" class="tab-item active"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>Events</a>
+    <a href="wallet.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>Wallet</a>
+    <a href="referrals.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>Referrals</a>
+    <a href="profile.html" class="tab-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Profile</a>
+  </nav>
+</div>
+<div id="toast-container" class="toast-container"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
