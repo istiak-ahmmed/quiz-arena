@@ -5,7 +5,7 @@
  */
 function renderAdminSidebar(activePage) {
   const pages = [
-    { id: 'dashboard', label: 'Dashboard', href: 'dashboard.html', section: 'Overview', icon: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' },
+    { id: 'dashboard', label: 'Dashboard', href: 'index.html', section: 'Overview', icon: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' },
     { id: 'deposits', label: 'Deposits', href: 'deposits.html', section: 'Payments', badge: 12, icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>' },
     { id: 'withdrawals', label: 'Withdrawals', href: 'withdrawals.html', section: 'Payments', badge: 4, icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>' },
     { id: 'events', label: 'Events', href: 'events.html', section: 'Content', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>' },

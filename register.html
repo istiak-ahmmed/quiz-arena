@@ -39,7 +39,7 @@
         referral:'',
         agree:false,
         get canContinue(){ return this.name && this.email && this.phone }
-      }" @submit.prevent="if(step===1){step=2}else{loading=true;setTimeout(()=>{window.location='users/dashboard.html'},1500)}">
+      }" @submit.prevent="if(step===1){step=2}else{loading=true;setTimeout(()=>{window.location='users/index.html'},1500)}">
 
         <!-- Step 1: Basic Info -->
         <div x-show="step===1">
