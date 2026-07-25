@@ -1,0 +1,7 @@
+{
+    "name": "quiz-arena",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "npx serve -s . --listen 8080"
+    }
+}
